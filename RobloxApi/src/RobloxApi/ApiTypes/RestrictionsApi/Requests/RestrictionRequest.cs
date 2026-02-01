@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using RobloxApi.ApiTypes.Abstractions;
-using RobloxApi.ApiTypes.RestrictionsApi.Responses;
+using RobloxApi.ApiTypes.RestrictionsApi.ResponseData;
 using RobloxApi.ApiTypes.RestrictionsApi.Restrictions;
 using RobloxApi.Helpers.JsonConverters.RequestV2Helpers;
 

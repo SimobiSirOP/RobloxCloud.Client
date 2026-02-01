@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 using RobloxApi.ApiTypes.RestrictionsApi;
-using RobloxApi.ApiTypes.RestrictionsApi.Responses;
+using RobloxApi.ApiTypes.RestrictionsApi.ResponseData;
 using RobloxApi.ApiTypes.RestrictionsApi.Restrictions;
 using RobloxApi.Helpers;
 

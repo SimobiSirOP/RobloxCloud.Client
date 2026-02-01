@@ -3,7 +3,7 @@ using RobloxApi.Types;
 
 namespace RobloxApi.ApiTypes.UsersApi;
 
-public class GetUserFromIdRequest : RequestBaseV2<RobloxUser>
+public class GetUserFromIdRequest : RequestBaseV2<RobloxFullUser>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Get;
 

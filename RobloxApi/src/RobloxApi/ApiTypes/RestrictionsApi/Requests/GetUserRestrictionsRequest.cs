@@ -1,5 +1,5 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxApi.ApiTypes.RestrictionsApi.Responses;
+using RobloxApi.ApiTypes.RestrictionsApi.ResponseData;
 
 namespace RobloxApi.ApiTypes.RestrictionsApi;
 

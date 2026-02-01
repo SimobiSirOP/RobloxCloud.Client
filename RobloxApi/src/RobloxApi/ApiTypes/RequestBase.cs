@@ -1,8 +1,9 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
+using RobloxApi.ApiTypes.Abstractions;
 using RobloxApi.Helpers;
 
-namespace RobloxApi.Requests;
+namespace RobloxApi.ApiTypes;
 
 public abstract class RequestBase<TResponse> : IRequest<TResponse>
 {

@@ -1,11 +1,13 @@
 ﻿using System.Text.Json.Serialization;
+using RobloxApi.ApiTypes.Abstractions;
+using RobloxApi.ApiTypes.RestrictionsApi.Responses;
+using RobloxApi.ApiTypes.RestrictionsApi.Restrictions;
 using RobloxApi.Helpers.JsonConverters.RequestV2Helpers;
-using RobloxApi.Requests.Restrictions;
 
-namespace RobloxApi.Requests;
+namespace RobloxApi.ApiTypes.RestrictionsApi;
 
 
-public class RestrictionRequest : RequestBaseV2<RestrictionRequest>
+public class RestrictionRequest : RequestBaseV2<RestrictionData>
 {
     [JsonIgnore]
     public override HttpMethod HttpMethod { get; } = HttpMethod.Patch;

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using RobloxApi.Types;
 
-namespace RobloxApi.Requests;
+namespace RobloxApi.ApiTypes.UsersApi;
 
 public class GetUserFromIdRequest : RequestBaseV2<RobloxUser>
 {

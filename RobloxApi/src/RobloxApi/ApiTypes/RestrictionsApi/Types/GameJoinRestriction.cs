@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using RobloxApi.Helpers.JsonConverters;
 
-namespace RobloxApi.Requests.Restrictions;
+namespace RobloxApi.ApiTypes.RestrictionsApi.Restrictions;
 
 public class GameJoinRestriction
 {

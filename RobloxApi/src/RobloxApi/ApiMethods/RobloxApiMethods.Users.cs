@@ -1,5 +1,5 @@
-﻿using RobloxApi.Helpers;
-using RobloxApi.Requests;
+﻿using RobloxApi.ApiTypes.UsersApi;
+using RobloxApi.Helpers;
 using RobloxApi.Types;
 
 namespace RobloxApi;

@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using JetBrains.Annotations;
+using RobloxApi.ApiTypes.Abstractions;
 using RobloxApi.Exceptions;
 using RobloxApi.Helpers;
-using RobloxApi.Requests;
 
 namespace RobloxApi;
 

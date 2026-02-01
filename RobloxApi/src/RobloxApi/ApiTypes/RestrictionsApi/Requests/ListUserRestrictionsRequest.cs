@@ -1,24 +1,26 @@
 ﻿using System.Text.Json.Serialization;
+using RobloxApi.ApiTypes.RestrictionsApi.Responses;
+using RobloxApi.ApiTypes.RestrictionsApi.Restrictions;
 
-namespace RobloxApi.Requests;
+namespace RobloxApi.ApiTypes.RestrictionsApi;
 
 public class ListUserRestrictionsRequest : RequestBaseV2<ListUserRestrictionsRequest>
 {
     [JsonIgnore]
     public override HttpMethod HttpMethod { get; } = HttpMethod.Get;
     
-    [JsonPropertyName("path")]
+    [JsonIgnore]
     public override string RequestPath => $"https://apis.roblox.com/cloud/v2/universes/{UniverseId}/user-restrictions";
 
     [JsonIgnore]
     public long? UniverseId;
     
     [JsonPropertyName("userRestrictions")]
-    public RestrictionRequest[]? UserRestrictions { get; set; }
-    
+    public RestrictionData[]? Restrictions { get; set; }
+        
     [QueryParameter("maxPageSize")] public int? MaxPageSize { get; set; } = 10;
     
-    [JsonPropertyName("nextPageToken")] 
+    [JsonInclude]
     [QueryParameter("pageToken", true)]
     public string? PageToken { get; set; }
 

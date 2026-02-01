@@ -20,10 +20,20 @@
         <RepositoryType>git</RepositoryType>
         <Description>A async API Wrapper to access Roblox Cloud API</Description>
         <PackageTags>roblox;api;server</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <AssemblyName>RobloxCloudApi</AssemblyName>
+        <RootNamespace>RobloxCloudApi</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="JetBrains.Annotations" Version="2025.2.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="../README.md">
+            <Pack>True</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
     </ItemGroup>
 
 </Project>

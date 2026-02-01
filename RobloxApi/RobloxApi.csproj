@@ -11,10 +11,15 @@
         <Version>0.0.1</Version>
         <Title>A roblox client that accesses Cloud API</Title>
         <Authors>SimobiSirOP</Authors>
+
+        <Copyright>Copyright © SimobiSirOP 202026</Copyright>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/SimobiSirOP/RobloxCloud.Client</PackageProjectUrl>
-        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
-        <RepositoryUrl>https://github.com/SimobiSirOP/RobloxCloud.Client</RepositoryUrl>
-        <RepositoryType>Git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <RepositoryUrl>https://github.com/SimobiSirOP/RobloxCloud.Client.git</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <Description>A async API Wrapper to access Roblox Cloud API</Description>
+        <PackageTags>roblox;api;server</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

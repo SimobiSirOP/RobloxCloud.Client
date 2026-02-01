@@ -1,12 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
         <LangVersion>latest</LangVersion>
         <EnableNETAnalyzers>True</EnableNETAnalyzers>
         <ImplicitUsings>enable</ImplicitUsings>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <Nullable>enable</Nullable>
+        <PackageId>RobloxCloud.Client</PackageId>
+        <Version>0.0.1</Version>
+        <Title>A roblox client that accesses Cloud API</Title>
+        <Authors>SimobiSirOP</Authors>
+        <PackageProjectUrl>https://github.com/SimobiSirOP/RobloxCloud.Client</PackageProjectUrl>
+        <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/SimobiSirOP/RobloxCloud.Client</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>

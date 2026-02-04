@@ -11,13 +11,13 @@ public static partial class RobloxApiMethods
     /// <summary>
     /// Use this method to get one page of Restrictions
     /// </summary>
-    /// <param name="client">An instance of <see cref="RobloxApiClient"/></param>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient"/></param>
     /// <param name="universeId">A roblox universe id</param>
     /// <param name="maxPageSize">Maximum size of a page, see <see href="https://create.roblox.com/docs/cloud/reference/features/users#Cloud_ListUserRestrictions"/></param>
     /// <param name="pageToken">A page token, can be null. see <see href="https://create.roblox.com/docs/cloud/reference/features/users#Cloud_ListUserRestrictions"/></param>
     /// <returns>The array of <see cref="RestrictionData"/> and NextPageToken</returns>
     public static async Task<(RestrictionData[] Restrictions, string NextPageToken)> ListRestrictedUsersInUniverse(
-        this RobloxApiClient client,
+        this IRobloxApiClient client,
         long universeId,
         int maxPageSize = 10,
         string pageToken = null!)
@@ -34,12 +34,12 @@ public static partial class RobloxApiMethods
     /// <summary>
     /// Use this method to get specific player restrictions
     /// </summary>
-    /// <param name="client">An instance of <see cref="RobloxApiClient"/></param>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient"/></param>
     /// <param name="userId">A Roblox user id</param>
     /// <param name="universeId">A roblox universe id</param>
     /// <returns>A instance of <see cref="RestrictionData"/></returns>
     public static async Task<RestrictionData> GetUserRestrictionsInUniverse(
-        this RobloxApiClient client,
+        this IRobloxApiClient client,
         long userId,
         long universeId
         )
@@ -54,7 +54,7 @@ public static partial class RobloxApiMethods
     /// <summary>
     /// Use this method to change User restriction
     /// </summary>
-    /// <param name="client">An instance of <see cref="RobloxApiClient"/></param>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient"/></param>
     /// <param name="userId">A roblox player Id</param>
     /// <param name="universeId">A roblox universe ID</param>
     /// <param name="active">Is restriction active</param>
@@ -65,7 +65,7 @@ public static partial class RobloxApiMethods
     /// <param name="excludeAlts">Should this restriction also apply to alt accounts</param>
     /// <returns>An Instance of <see cref="RestrictionData"/></returns>
     public static async Task<RestrictionData> SetUserRestrictionsInUniverse(
-        this RobloxApiClient client,
+        this IRobloxApiClient client,
         long userId,
         long universeId,
         bool active,
@@ -90,7 +90,7 @@ public static partial class RobloxApiMethods
     /// <summary>
     /// Use this method to ban specific player from roblox universe
     /// </summary>
-    /// <param name="client">An instance of <see cref="RobloxApiClient"/></param>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient"/></param>
     /// <param name="userId">A Roblox user ID</param>
     /// <param name="universeId">A Roblox universe ID</param>
     /// <param name="duration">Duration of a ban</param>
@@ -99,7 +99,7 @@ public static partial class RobloxApiMethods
     /// <param name="excludeAlts">Should it ban alt accounts too or not</param>
     /// <returns>An Instance of <see cref="RestrictionData"/></returns>
     public static async Task<RestrictionData> BanUserFromUniverse(
-        this RobloxApiClient client,
+        this IRobloxApiClient client,
         long userId,
         long universeId,
         long? duration = null,
@@ -113,12 +113,12 @@ public static partial class RobloxApiMethods
     /// <summary>
     /// Use this method to unban specific player of roblox universe
     /// </summary>
-    /// <param name="client">An instance of <see cref="RobloxApiClient"/></param>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient"/></param>
     /// <param name="userId">A Roblox user ID</param>
     /// <param name="universeId">A Roblox universe ID</param>
     /// <returns>An Instance of <see cref="RestrictionData"/></returns>
     public static async Task<RestrictionData> UnbanUserFromUniverse(
-        this RobloxApiClient client,
+        this IRobloxApiClient client,
         long userId,
         long universeId)
     {

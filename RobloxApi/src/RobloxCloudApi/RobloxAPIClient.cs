@@ -7,21 +7,23 @@ using RobloxCloudApi.Helpers;
 namespace RobloxCloudApi;
 
 [PublicAPI]
-public class RobloxApiClient
+public class RobloxApiClient : IRobloxApiClient
 {
     private readonly HttpClient _httpClient;
-    
-    public RobloxApiClient(string apiKey, HttpClient? httpClient = default)
+
+    private RobloxApiClientSettings _robloxApiClientSettings { get; set; }
+    public RobloxApiClient(RobloxApiClientSettings robloxApiClientSettings, HttpClient? httpClient = default)
     {
+        _robloxApiClientSettings = robloxApiClientSettings;
         this._httpClient = httpClient ??
             new HttpClient(new SocketsHttpHandler() { PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1) })
             {
-                DefaultRequestHeaders = {{"x-api-key", apiKey}}
+                DefaultRequestHeaders = {{"x-api-key", _robloxApiClientSettings.ApiKey}},
             };
     }
     
-    private static readonly int AmountOfRetries = 5;
-    private static readonly int DelayBetweenRetries = 5; // in seconds 
+    
+
     public async Task<TResponse?> SendRequest<TResponse>(IRequest<TResponse> request)
     {
         if (request is null)
@@ -54,9 +56,9 @@ public class RobloxApiClient
             {
                 if (!httpResponseMessage.IsSuccessStatusCode)
                 {
-                    if (httpResponseMessage.StatusCode == HttpStatusCode.TooManyRequests && attempts <= AmountOfRetries)
+                    if (httpResponseMessage.StatusCode == HttpStatusCode.TooManyRequests && attempts <=_robloxApiClientSettings.AmountOfRetries)
                     {
-                        await Task.Delay(DelayBetweenRetries * 1000);
+                        await Task.Delay(_robloxApiClientSettings.Timeout).ConfigureAwait(false);
                         continue;
                     }
                     throw new RobloxApiException("Request error: " + httpResponseMessage.StatusCode + " " +
@@ -69,6 +71,27 @@ public class RobloxApiClient
             }
         }
     }
+}
+
+public class RobloxApiClientSettings
+{
+    public string ApiKey { get; }
     
+    public TimeSpan Timeout { get; }
     
+    public int AmountOfRetries { get; }
+
+    public RobloxApiClientSettings(string apiKey, TimeSpan requestTimeout, int requestRetryAmount = 5)
+    {
+        ApiKey = apiKey;
+        Timeout = requestTimeout;
+        AmountOfRetries = requestRetryAmount;
+    }
+
+    public RobloxApiClientSettings(string apiKey, int requestRetryAmount = 5)
+    {
+        ApiKey = apiKey;
+        Timeout = new TimeSpan(0, 0, 5);
+        AmountOfRetries = requestRetryAmount;
+    }
 }

@@ -42,9 +42,9 @@ public abstract class RequestBaseV2<TResponse> : RequestBase<TResponse>
                 queryAdditionString.Append("&");
             
             if (paramValue != null)
-                queryAdditionString.Append($"${paramName}={paramValue.ToString()}");
+                queryAdditionString.Append($"{paramName}={paramValue.ToString()}");
             else if (!queryParameter.IgnoreWhenNull)
-                queryAdditionString.Append($"${paramName}");
+                queryAdditionString.Append($"{paramName}");
         }
         
         if (queryAdditionString.Length > 0)

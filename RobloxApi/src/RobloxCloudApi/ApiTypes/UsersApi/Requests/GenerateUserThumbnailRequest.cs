@@ -23,7 +23,7 @@ public class GenerateUserThumbnailRequest : RequestBaseV2<ThumbnailData>
     /// <see href="https://create.roblox.com/docs/cloud/reference/features/users#Cloud_GenerateUserThumbnail"/>
     /// </summary>
     [QueryParameter("format")]
-    [JsonConverter(typeof(JsonStringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter<ThumbnailData.ThumbnailFormat>))]
     public ThumbnailData.ThumbnailFormat? Format { get; set; }
     
     /// <summary>
@@ -31,6 +31,6 @@ public class GenerateUserThumbnailRequest : RequestBaseV2<ThumbnailData>
     /// <see href="https://create.roblox.com/docs/cloud/reference/features/users#Cloud_GenerateUserThumbnail"/>
     /// </summary>
     [QueryParameter("shape")]
-    [JsonConverter(typeof(JsonStringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter<ThumbnailData.ThumbnailShape>))]
     public ThumbnailData.ThumbnailShape? Shape { get; set; }
 }

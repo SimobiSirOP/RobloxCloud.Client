@@ -3,12 +3,8 @@ using RobloxCloudApi.Helpers.JsonConverters.RequestV2Helpers;
 
 namespace RobloxCloudApi.ApiTypes.Abstractions;
 
-public abstract class ApiV2BaseData : IApiData
+public abstract class ApiDataBase
 {
     [JsonPropertyName("path")]
     public string? RequestPath { get; set; }
-
-    [JsonPropertyName("user")] 
-    [JsonConverter(typeof(UserApiPathConverter))]
-    public long? UserId { get; set; }
 }

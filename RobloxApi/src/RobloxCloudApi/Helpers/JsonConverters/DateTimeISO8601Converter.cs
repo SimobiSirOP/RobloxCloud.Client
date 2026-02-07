@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace RobloxCloudApi.Helpers.JsonConverters;
 
-public class DateTimeIso8601Converter : JsonConverter<DateTime>
+internal class DateTimeIso8601Converter : JsonConverter<DateTime>
 {
     public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

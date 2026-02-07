@@ -3,7 +3,7 @@ using RobloxCloudApi.ApiTypes.RestrictionsApi.ResponseData;
 
 namespace RobloxCloudApi.ApiTypes.RestrictionsApi;
 
-public class GetUserRestrictionsRequest : RequestBaseV2<RestrictionData>
+internal class GetUserRestrictionsRequest : RequestBaseV2<RestrictionData>
 {
     public override HttpMethod HttpMethod { get; } = HttpMethod.Get;
     

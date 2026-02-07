@@ -5,7 +5,7 @@ using RobloxCloudApi.Helpers.JsonConverters.RequestV2Helpers;
 namespace RobloxCloudApi.ApiTypes.RestrictionsApi;
 
 
-public class RestrictionRequest : RequestBaseV2<RestrictionData>
+internal class RestrictionRequest : RequestBaseV2<RestrictionData>
 {
     [JsonIgnore]
     public override HttpMethod HttpMethod { get; } = HttpMethod.Patch;

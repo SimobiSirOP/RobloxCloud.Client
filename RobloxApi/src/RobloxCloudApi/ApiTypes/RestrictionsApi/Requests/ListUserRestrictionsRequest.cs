@@ -1,9 +1,10 @@
 ﻿using System.Text.Json.Serialization;
+using RobloxCloudApi.ApiTypes.RequestHelpers;
 using RobloxCloudApi.ApiTypes.RestrictionsApi.ResponseData;
 
 namespace RobloxCloudApi.ApiTypes.RestrictionsApi;
 
-public class ListUserRestrictionsRequest : RequestBaseV2<ListUserRestrictionsRequest>
+internal class ListUserRestrictionsRequest : ListRequestBase<RestrictionList>
 {
     [JsonIgnore]
     public override HttpMethod HttpMethod { get; } = HttpMethod.Get;
@@ -16,11 +17,5 @@ public class ListUserRestrictionsRequest : RequestBaseV2<ListUserRestrictionsReq
     
     [JsonPropertyName("userRestrictions")]
     public RestrictionData[]? Restrictions { get; set; }
-        
-    [QueryParameter("maxPageSize")] public int? MaxPageSize { get; set; } = 10;
     
-    [JsonInclude]
-    [QueryParameter("pageToken", true)]
-    public string? PageToken { get; set; }
-
 }

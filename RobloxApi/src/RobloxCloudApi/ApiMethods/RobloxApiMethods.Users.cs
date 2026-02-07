@@ -83,7 +83,7 @@ public static partial class RobloxApiMethods
     public static async Task<ThumbnailData> GenerateUserThumbnail(
         this IRobloxApiClient client,
         long userId,
-        int size = 420,
+        ThumbnailData.ThumbnailSize size = ThumbnailData.ThumbnailSize.Size420,
         ThumbnailData.ThumbnailFormat format = ThumbnailData.ThumbnailFormat.PNG,
         ThumbnailData.ThumbnailShape shape = ThumbnailData.ThumbnailShape.ROUND)
     {

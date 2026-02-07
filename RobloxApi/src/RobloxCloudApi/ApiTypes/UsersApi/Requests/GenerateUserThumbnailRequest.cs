@@ -16,7 +16,7 @@ public class GenerateUserThumbnailRequest : RequestBaseV2<ThumbnailData>
     /// <see href="https://create.roblox.com/docs/cloud/reference/features/users#Cloud_GenerateUserThumbnail"/>
     /// </summary>
     [QueryParameter("size")]
-    public int? Size { get; set; }
+    public ThumbnailData.ThumbnailSize? Size { get; set; }
     
     /// <summary>
     /// Supported formats: PNG or JPG. Default: PNG

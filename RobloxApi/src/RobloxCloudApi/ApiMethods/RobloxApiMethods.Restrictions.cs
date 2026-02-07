@@ -15,8 +15,8 @@ public static partial class RobloxApiMethods
     /// <param name="universeId">A roblox universe id</param>
     /// <param name="maxPageSize">Maximum size of a page, see <see href="https://create.roblox.com/docs/cloud/reference/features/users#Cloud_ListUserRestrictions"/></param>
     /// <param name="pageToken">A page token, can be null. see <see href="https://create.roblox.com/docs/cloud/reference/features/users#Cloud_ListUserRestrictions"/></param>
-    /// <returns>The array of <see cref="RestrictionData"/> and NextPageToken</returns>
-    public static async Task<(RestrictionData[] Restrictions, string NextPageToken)> ListRestrictedUsersInUniverse(
+    /// <returns>The array of <see cref="RestrictionList"/></returns>
+    public static async Task<RestrictionList> ListRestrictedUsersInUniverse(
         this IRobloxApiClient client,
         long universeId,
         int maxPageSize = 10,
@@ -28,7 +28,7 @@ public static partial class RobloxApiMethods
             MaxPageSize = maxPageSize,
             PageToken = pageToken
         }))!;
-        return (result.Restrictions, result.PageToken)! ;
+        return result;
     }
 
     /// <summary>

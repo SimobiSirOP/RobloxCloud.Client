@@ -17,10 +17,9 @@ public class RobloxApiClient : IRobloxApiClient
     {
         _robloxApiClientSettings = robloxApiClientSettings;
         this._httpClient = httpClient ??
-            new HttpClient(new SocketsHttpHandler() { PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1) })
-            {
-                DefaultRequestHeaders = {{"x-api-key", _robloxApiClientSettings.ApiKey}},
-            };
+                           new HttpClient(new SocketsHttpHandler()
+                               { PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1) });
+        this._httpClient.DefaultRequestHeaders.Add("x-api-key", _robloxApiClientSettings.ApiKey);
     }
     
     

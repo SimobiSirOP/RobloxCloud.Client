@@ -39,4 +39,4 @@ jobs:
           
     
       - name: Nuget Push
-        run: dotnet nuget push bin/Release/*.nupkg \ --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" \ --skip-duplicate --source https://www.nuget.org/api/v3/index.json
+        run: dotnet nuget push bin/Release/*.nupkg \ --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" \ --skip-duplicate --source https://api.nuget.org/v3/index.json

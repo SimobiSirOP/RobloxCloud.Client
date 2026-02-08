@@ -23,8 +23,6 @@ public abstract class RequestBaseV2<TResponse> : RequestBase<TResponse>
 
     public override string GetRequestUri()
     {
-        if (HttpMethod != HttpMethod.Get) return RequestPath;
-        
         var properties = GetType().GetProperties()
             .Where(parameter => Attribute.IsDefined(parameter, typeof(QueryParameter)));
 

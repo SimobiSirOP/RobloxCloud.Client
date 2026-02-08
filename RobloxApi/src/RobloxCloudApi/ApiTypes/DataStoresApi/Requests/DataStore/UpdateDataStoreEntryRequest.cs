@@ -34,16 +34,17 @@ internal class UpdateDataStoreEntryRequest : RequestBaseV2<DataStoreEntry>
     public bool? AllowMissing { get; set; }
     
     [JsonPropertyName("etag")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ETag { get; set; }
     
     [JsonPropertyName("value")]
-    public string? Value { get; set; }
+    public object? Value { get; set; }
     
     [JsonPropertyName("users")]
-    [JsonConverter(typeof(UserApiPathConverter))]
+    [JsonConverter(typeof(UserApiPathArrayConverter))]
     public long[]? Users { get; set; }
     
     [JsonPropertyName("attributes")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public object[]? Attributes { get; set; }
+    public object? Attributes { get; set; }
 }

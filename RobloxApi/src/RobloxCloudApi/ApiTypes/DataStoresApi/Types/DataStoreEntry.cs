@@ -11,12 +11,12 @@ public class DataStoreEntry : ApiDataBase
     [JsonConverter(typeof(DateTimeIso8601Converter))]
     public DateTime? CreationTime { get; set; }
     
-    [JsonPropertyName("createTime")]
+    [JsonPropertyName("expireTime")]
     [JsonConverter(typeof(DateTimeIso8601Converter))]
     public DateTime? ExpirationTime { get; set; }
     
     [JsonPropertyName("revisionId")]
-    public long? RevisionId { get; set; }
+    public string? RevisionId { get; set; }
     
     [JsonPropertyName("revisionCreateTime")]
     [JsonConverter(typeof(DateTimeIso8601Converter))]
@@ -36,15 +36,15 @@ public class DataStoreEntry : ApiDataBase
     /// Serialized value of a entry
     /// </summary>
     [JsonPropertyName("value")]
-    public string? Value { get; set; }
+    public object? Value { get; set; }
     
     [JsonPropertyName("id")]
     public string? Id { get; set; }
     
     [JsonPropertyName("users")]
-    [JsonConverter(typeof(UserApiPathConverter))]
+    [JsonConverter(typeof(UserApiPathArrayConverter))]
     public long[]? Users { get; set; }
     
     [JsonPropertyName("attributes")]
-    public object[]? Attributes { get; set; }
+    public object? Attributes { get; set; }
 }

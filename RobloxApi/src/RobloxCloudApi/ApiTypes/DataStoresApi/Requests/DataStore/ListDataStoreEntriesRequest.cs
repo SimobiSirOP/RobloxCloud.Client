@@ -15,8 +15,8 @@ internal class ListDataStoreEntriesRequest : ListRequestBase<DataStoreEntryList>
         {
             if (ScopeId == null)
                 return
-                    $"https://apis.roblox.com/cloud/v2/universes/{UniverseId}/data-stores/{DataStoreId}/entries/";
-            return $"https://apis.roblox.com/cloud/v2/universes/{UniverseId}/data-stores/{DataStoreId}/scopes/{ScopeId}/entries/";
+                    $"https://apis.roblox.com/cloud/v2/universes/{UniverseId}/data-stores/{DataStoreId}/entries";
+            return $"https://apis.roblox.com/cloud/v2/universes/{UniverseId}/data-stores/{DataStoreId}/scopes/{ScopeId}/entries";
         }
     }
         

@@ -36,7 +36,7 @@ public class Serializer
 
 
     /// <summary>
-    ///     Deserializes an object from JSON/>
+    ///     Deserializes an object from JSON
     /// </summary>
     public static T SerializeFromString<T>(string json)
     {

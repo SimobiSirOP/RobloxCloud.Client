@@ -7,7 +7,7 @@ namespace RobloxCloudApi.ApiTypes.DataStoresApi.Requests;
 internal class IncrementDataStoreEntryRequest : RequestBaseV2<DataStoreEntry>
 {
     [JsonIgnore]
-    public override HttpMethod HttpMethod { get; } = HttpMethod.Patch;
+    public override HttpMethod HttpMethod { get; } = HttpMethod.Post;
 
     [JsonPropertyName("path")]
     public override string RequestPath {
@@ -32,10 +32,10 @@ internal class IncrementDataStoreEntryRequest : RequestBaseV2<DataStoreEntry>
     public long? Amount { get; set; }
     
     [JsonPropertyName("users")]
-    [JsonConverter(typeof(UserApiPathConverter))]
+    [JsonConverter(typeof(UserApiPathArrayConverter))]
     public long[]? Users { get; set; }
     
     [JsonPropertyName("attributes")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public object[]? Attributes { get; set; }
+    public object? Attributes { get; set; }
 }

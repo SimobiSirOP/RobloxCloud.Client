@@ -20,3 +20,40 @@ public class UserApiPathConverter : JsonConverter<long>
         writer.WriteStringValue($"users/{value}");
     }
 }
+
+public class UserApiPathArrayConverter : JsonConverter<long[]>
+{
+    public override long[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        if (reader.TokenType != JsonTokenType.StartArray)
+            throw new JsonException("Expected start of array.");
+
+        var list = new List<long>();
+
+        while (reader.Read())
+        {
+            if (reader.TokenType == JsonTokenType.EndArray)
+                return list.ToArray();
+
+            var strValue = reader.GetString();
+            var match = Regex.Match(strValue ?? "", @"^users/(\d+)$");
+            
+            if (!match.Success)
+                throw new JsonException($"Invalid user path format: {strValue}");
+
+            list.Add(long.Parse(match.Groups[1].Value));
+        }
+
+        throw new JsonException("Unexpected end of JSON.");
+    }
+
+    public override void Write(Utf8JsonWriter writer, long[] value, JsonSerializerOptions options)
+    {
+        writer.WriteStartArray();
+        foreach (var item in value)
+        {
+            writer.WriteStringValue($"users/{item}");
+        }
+        writer.WriteEndArray();
+    }
+}

@@ -3,11 +3,11 @@ using RobloxCloudApi.ApiTypes.DataStoresApi.Types;
 
 namespace RobloxCloudApi.ApiTypes.DataStoresApi.Requests;
 
-internal class DeleteDataStoreEntryRequest : RequestBaseV2<DataStoreEntry>
+internal class DeleteDataStoreEntryRequest : RequestBaseV2<object>
 {
     [JsonIgnore]
     public override HttpMethod HttpMethod { get; } = HttpMethod.Delete;
-    [JsonPropertyName("path")]
+    [JsonIgnore]
     public override string RequestPath {
         get
         {

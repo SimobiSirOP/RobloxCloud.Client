@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using JetBrains.Annotations;
 using RobloxCloudApi.ApiTypes.Abstractions;
+using RobloxCloudApi.ErrorHandling;
 using RobloxCloudApi.Exceptions;
 using RobloxCloudApi.Helpers;
 
@@ -61,8 +62,7 @@ public class RobloxApiClient : IRobloxApiClient
                         await Task.Delay(_robloxApiClientSettings.Timeout).ConfigureAwait(false);
                         continue;
                     }
-                    throw new RobloxApiException("Request error: " + httpResponseMessage.StatusCode + " " +
-                                                 httpResponseMessage.ReasonPhrase);
+                    throw new RobloxApiException(await ErrorParser.GetErrorString(httpResponseMessage));
                 }
                 
                 return Serializer.SerializeFromString<TResponse>(
@@ -71,6 +71,7 @@ public class RobloxApiClient : IRobloxApiClient
             }
         }
     }
+    
 }
 
 public class RobloxApiClientSettings

@@ -7,10 +7,10 @@ namespace RobloxCloudApi;
 public static partial class RobloxApiMethods
 {
     /// <summary>
-    /// Use this method to get all DataStores in Universe
+    /// Use this method to get a page of DataStores in Universe.
+    /// Use <see cref="GetAllDataStores"/> to Get all DataStores
     /// </summary>
     /// <param name="client">The instance of <see cref="IRobloxApiClient"/></param>
-    /// 
     /// <param name="universeId">A roblox universe ID</param>
     /// <param name="pageToken">A pageToken of next list page</param>
     /// <param name="maxPageSize">Size of a page, a number between 1 and 100</param>
@@ -33,6 +33,38 @@ public static partial class RobloxApiMethods
                 UniverseId = universeId
             }))!;
     }
+    
+    /// <summary>
+    /// Use this method to get all dataStores in universe
+    /// </summary>
+    /// <param name="client">The instance of <see cref="IRobloxApiClient"/></param>
+    /// <param name="universeId">A roblox universe ID</param>
+    /// <param name="pageToken">A pageToken of next list page</param>
+    /// <param name="maxPageSize">Size of a page, a number between 1 and 100</param>
+    /// <param name="showDeleted">Should it return deleted DataStores or not</param>
+    /// <returns>A list of <see cref="DataStoreInfo"/></returns>
+    public static async Task<List<DataStoreInfo>> GetAllDataStores(
+        this IRobloxApiClient client,
+        long universeId,
+        string? pageToken = null,
+        int maxPageSize = 10,
+        bool showDeleted = false
+    )
+    {
+        List<DataStoreInfo> dataStores = new List<DataStoreInfo>();
+        DataStoreList tempList;
+        string? currentPageToken = null;
+        do
+        {
+            tempList = await client.GetDataStores(universeId, currentPageToken, 100, true);
+            if (tempList == null) 
+                break;
+            dataStores.AddRange(tempList.List!);
+            currentPageToken = tempList.NextPageToken;
+        } while (tempList.NextPageToken != null);
+
+        return dataStores;
+    }
 
     /// <summary>
     /// Use this method to delete DataStore. It sets state of DataStore to "DELETED" to delete DataStore
@@ -40,7 +72,7 @@ public static partial class RobloxApiMethods
     /// <param name="client">An instance of <see cref="IRobloxApiClient"/></param>
     /// <param name="universeId">A roblox universe ID</param>
     /// <param name="dataStoreId">A DataStore Id (name)</param>
-    /// <returns></returns>
+    /// <returns>An instance of deleted <see cref="DataStoreInfo"/></returns>
     public static async Task<DataStoreInfo> DeleteDataStore(
         this IRobloxApiClient client,
         long universeId,
@@ -54,13 +86,56 @@ public static partial class RobloxApiMethods
             }
         ))!;
     }
-
-    public static async Task<DataStoreInfo> CreateDataStore(
+    
+    /// <summary>
+    /// Use this method to undelete DataStore. It sets state of DataStore back to "ACTIVE"
+    /// </summary>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient"/></param>
+    /// <param name="universeId">A roblox universe ID</param>
+    /// <param name="dataStoreId">A DataStore Id (name)</param>
+    /// <returns>An instance of deleted <see cref="DataStoreInfo"/></returns>
+    public static async Task<DataStoreInfo> UndeleteDataStore(
         this IRobloxApiClient client,
         long universeId,
-        string? newDataStoreId)
+        string? dataStoreId)
     {
-        throw new NotImplementedException();
+        return (await client.ThrowIfNull().SendRequest(
+            new UndeleteDataStoreRequest()
+            {
+                UniverseId = universeId,
+                DataStoreId = dataStoreId
+            }
+        ))!;
+    }
+
+
+    /// <summary>
+    /// Use this method to create Data Store
+    /// </summary>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient"/></param>
+    /// <param name="universeId">An roblox universe Id</param>
+    /// <param name="newDataStoreId">A DataStore Id to create</param>
+    public static async Task CreateDataStore(
+        this IRobloxApiClient client,
+        long universeId,
+        string newDataStoreId)
+    {
+        const string tempEntryId = "TempEntry2";
+        var dataStores = await client.GetAllDataStores(universeId);
+        // During tested encountered an error of having a dataStore already. So we will get it back!
+        if (dataStores.Exists(x => x.Id == newDataStoreId))
+        {
+            var thisDataStore = dataStores.First(x => x.Id == newDataStoreId);
+            if (thisDataStore.State == DataStoreState.DELETED)
+                await client.UndeleteDataStore(universeId, newDataStoreId);
+            return;
+        }
+        
+        // Creating by creating a entry and deleting it right after
+        await client.CreateDataStoreEntry(
+                universeId, newDataStoreId, tempEntryId, "Entry created during dataStoreCreation",
+                new long[] { 123 }, null, null);
+        await client.DeleteDataStoreEntry(universeId,  newDataStoreId,  tempEntryId);
     }
 
     /// <summary>
@@ -174,10 +249,10 @@ public static partial class RobloxApiMethods
         string dataStoreId,
         string entryId,
         string? scopeId,
-        string value,
+        object value,
         long[] dataStoreUsersIds,
-        object[]? attributes = null,
-        string? eTag = "",
+        object? attributes = null,
+        string? eTag = null,
         bool allowMissing = false
     )
     {
@@ -214,10 +289,10 @@ public static partial class RobloxApiMethods
         long universeId,
         string dataStoreId,
         string entryId,
-        string value,
+        object value,
         long[] dataStoreUsersIds,
-        object[]? attributes = null,
-        string? eTag = "",
+        object? attributes = null,
+        string? eTag = null,
         bool allowMissing = false
     )
     {
@@ -234,20 +309,20 @@ public static partial class RobloxApiMethods
     /// <param name="scopeId">A scope of DataStore if needed</param>
     /// <param name="entryId">An ID of DataStore entry</param>
     /// <returns>An instance of <see cref="DataStoreEntry"/></returns>
-    public static async Task<DataStoreEntry> DeleteDataStoreEntry(
+    public static async Task DeleteDataStoreEntry(
         this IRobloxApiClient client,
         long universeId,
         string dataStoreId,
         string entryId,
         string? scopeId = null)
     {
-        return (await client.ThrowIfNull().SendRequest(new DeleteDataStoreEntryRequest()
+        await client.ThrowIfNull().SendRequest(new DeleteDataStoreEntryRequest()
         {
             UniverseId = universeId,
             DataStoreId = dataStoreId,
             EntryId = entryId,
             ScopeId = scopeId
-        }))!;
+        });
     }
 
 
@@ -270,10 +345,10 @@ public static partial class RobloxApiMethods
         string dataStoreId,
         string entryId,
         string? scopeId,
-        string value,
+        object value,
         long[] dataStoreUsersIds,
-        object[]? attributes = null,
-        string? eTag = ""
+        object? attributes = null,
+        string? eTag = null
     )
     {
         return (await client.ThrowIfNull().SendRequest(new CreateDataStoreEntryRequest()
@@ -306,10 +381,10 @@ public static partial class RobloxApiMethods
         long universeId,
         string dataStoreId,
         string entryId,
-        string value,
+        object value,
         long[] dataStoreUsersIds,
-        object[]? attributes = null,
-        string? eTag = ""
+        object? attributes = null,
+        string? eTag = null
     )
     {
         return (await client.CreateDataStoreEntry(universeId, dataStoreId, entryId, null, value, dataStoreUsersIds,
@@ -336,7 +411,7 @@ public static partial class RobloxApiMethods
         string? scopeId,
         int amount,
         long[] dataStoreUsersIds,
-        object[]? attributes = null
+        object? attributes = null
     )
     {
         return (await client.ThrowIfNull().SendRequest(new IncrementDataStoreEntryRequest()
@@ -369,9 +444,19 @@ public static partial class RobloxApiMethods
         string entryId,
         int amount,
         long[] dataStoreUsersIds,
-        object[]? attributes = null
+        object? attributes = null
     )
     {
         return (await client.IncrementDataStoreEntry(universeId, dataStoreId, entryId, null, amount, dataStoreUsersIds))!;
+    }
+
+    public static async Task<SnapshotResult> SnapshotDataStores(
+        this IRobloxApiClient client,
+        long universeId)
+    {
+        return (await client.ThrowIfNull().SendRequest(new SnapshotDataStoresRequest()
+        {
+            UniverseId = universeId
+        }))!;
     }
 }

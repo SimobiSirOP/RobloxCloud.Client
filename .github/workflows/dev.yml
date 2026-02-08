@@ -27,7 +27,7 @@ jobs:
       - name: Build
         run: dotnet build RobloxApi/RobloxApi.csproj --no-restore
       - name: Test
-        run: dotnet test UnitTests/UnitTests.csproj --no-build --verbosity normal TestCategory=Complete
+        run: dotnet test UnitTests/UnitTests.csproj --verbosity normal TestCategory=Complete
       
       # NUGET PUSH
       - name: Nuget Login

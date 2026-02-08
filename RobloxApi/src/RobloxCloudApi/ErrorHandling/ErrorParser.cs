@@ -32,7 +32,7 @@ public static class ErrorParser
 
     private static async Task<string> GetBasicErrorString(HttpResponseMessage response)
     {
-        return $"{response.StatusCode}: {response.ReasonPhrase}\n";
+        return $"{(int)response.StatusCode}: {response.ReasonPhrase}\n";
     }
     
     private class ErrorResponseArray : ListResponseBase<RobloxApiError>

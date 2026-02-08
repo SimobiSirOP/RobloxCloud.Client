@@ -11,11 +11,8 @@ on:
 
 jobs:
   build:
-
+    environment: Dev Environment
     runs-on: ubuntu-latest
-    env:
-      ROBLOX_API_TOKEN: ${{ secrets.ROBLOX_API_TOKEN }}
-      ROBLOX_UNIVERSE_ID: ${{ secrets.ROBLOX_UNIVERSE_ID}}
     steps:
       - uses: actions/checkout@v4
       - name: Setup .NET
@@ -25,9 +22,12 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
-        run: dotnet build RobloxApi/RobloxApi.csproj --no-restore
+        run: dotnet build --no-restore
       - name: Test
-        run: dotnet test UnitTests/UnitTests.csproj --verbosity normal --filter  TestCategory=Complete
+        env:
+          ROBLOX_API_TOKEN: ${{ secrets.ROBLOX_API_TOKEN }}
+          ROBLOX_UNIVERSE_ID: ${{ secrets.ROBLOX_UNIVERSE_ID }}
+        run: dotnet test UnitTests/UnitTests.csproj --verbosity normal --filter TestCategory=Complete
       
       # NUGET PUSH
       - name: Nuget Login

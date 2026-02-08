@@ -8,7 +8,7 @@
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <Nullable>enable</Nullable>
         <PackageId>RobloxCloud.Client</PackageId>
-        <Version>0.0.1-alpha2</Version>
+        <Version>0.0.2-alpha5</Version>
         <Title>A roblox client that accesses Cloud API</Title>
         <Authors>SimobiSirOP</Authors>
 

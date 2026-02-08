@@ -11,7 +11,6 @@ on:
 
 jobs:
   build:
-    environment: Dev Environment
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using JetBrains.Annotations;
-using RobloxCloudApi.ApiTypes.Abstractions;
+using RobloxCloudApi.APIRequests.Abstractions;
 using RobloxCloudApi.ErrorHandling;
-using RobloxCloudApi.Exceptions;
+using RobloxCloudApi.ErrorHandling.Exceptions;
 using RobloxCloudApi.Helpers;
 
 namespace RobloxCloudApi;
@@ -65,8 +65,7 @@ public class RobloxApiClient : IRobloxApiClient
                 }
                 
                 return Serializer.SerializeFromString<TResponse>(
-                    await httpResponseMessage.Content.ReadAsStringAsync(),
-                    request.DeserializedPropertyPath);
+                    await httpResponseMessage.Content.ReadAsStringAsync());
             }
         }
     }

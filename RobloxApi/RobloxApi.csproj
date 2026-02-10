@@ -37,7 +37,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="src\RobloxCloudApi\ApiTypes\DataStoresApi\Requests\MemoryStore\" />
+      <Folder Include="src\RobloxCloudApi\APIRequests\DataStores\MemoryStore\" />
+      <Folder Include="src\RobloxCloudApi\Pooling\" />
     </ItemGroup>
 
 </Project>

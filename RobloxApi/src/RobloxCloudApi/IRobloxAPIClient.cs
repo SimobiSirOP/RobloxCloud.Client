@@ -1,4 +1,4 @@
-﻿using RobloxCloudApi.ApiTypes.Abstractions;
+﻿using RobloxCloudApi.APIRequests.Abstractions;
 
 namespace RobloxCloudApi;
 

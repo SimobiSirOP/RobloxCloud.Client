@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
-using RobloxCloudApi.ApiTypes.RequestHelpers;
+using RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.APITypes;
 using RobloxCloudApi.Helpers;
 
 namespace RobloxCloudApi.ErrorHandling;
@@ -9,12 +10,12 @@ public static class ErrorParser
 {
     public static async Task<string> GetErrorString(HttpResponseMessage response)
     {
-        var error = Serializer.SerializeFromString<RobloxApiError>(await response.Content.ReadAsStringAsync());
+        var error = Serializer.SerializeFromString<RobloxError>(await response.Content.ReadAsStringAsync());
 
         if (error.ErrorCode == null)
             return await GetErrorStringFromArray(response);
 
-        return await GetBasicErrorString(response) + $"Error {error.ErrorCode}: {error.ErrorMessage}" ;
+        return await GetBasicErrorString(response) + error.ToString() ;
 
     }
 
@@ -26,7 +27,7 @@ public static class ErrorParser
         
         StringBuilder newErrorString = new(await GetBasicErrorString(response));
         foreach (var error in errorMessage.List)
-            newErrorString.AppendLine($"Error {error.ErrorCode}: {error.ErrorMessage}");
+            newErrorString.AppendLine(error.ToString());
         return newErrorString.ToString();
     }
 
@@ -35,18 +36,12 @@ public static class ErrorParser
         return $"{(int)response.StatusCode}: {response.ReasonPhrase}\n";
     }
     
-    private class ErrorResponseArray : ListResponseBase<RobloxApiError>
+    private class ErrorResponseArray : ListResponseBase<RobloxError>
     {
         [JsonPropertyName("errors")]
-        public override RobloxApiError[]? List { get; set; }
+        public override RobloxError[]? List { get; set; }
     }
 }
 
-public record struct RobloxApiError
-{
-    [JsonPropertyName("code")]
-    public long? ErrorCode { get; set; }
-    [JsonPropertyName("message")]
-    public string? ErrorMessage { get; set; }
-}
+
 

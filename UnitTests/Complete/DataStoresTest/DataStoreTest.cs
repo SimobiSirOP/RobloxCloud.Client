@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using RobloxCloudApi;
-using RobloxCloudApi.ApiTypes.DataStoresApi.Types;
-using RobloxCloudApi.Exceptions;
+using RobloxCloudApi.APITypes;
+using RobloxCloudApi.ErrorHandling.Exceptions;
 
 namespace UnitTests.Complete.DataStoresTest;
 

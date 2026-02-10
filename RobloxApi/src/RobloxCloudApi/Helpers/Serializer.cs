@@ -1,4 +1,5 @@
-﻿using System.Text.Encodings.Web;
+﻿using System.Runtime.Serialization.Formatters.Binary;
+using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
@@ -26,6 +27,16 @@ public class Serializer
         WriteIndented = true
     };
 
+
+    public static byte[] ConvertObjectToBytes(object objectToConvert)
+    {
+        return JsonSerializer.SerializeToUtf8Bytes(objectToConvert, DefaultSettings);
+    }
+    
+    public static T ConvertBytesToObject<T>(byte[] bytes)
+    {
+        return JsonSerializer.Deserialize<T>(bytes, DefaultSettings)!;
+    }
     /// <summary>
     ///     Serializes an object to JSON/>
     /// </summary>

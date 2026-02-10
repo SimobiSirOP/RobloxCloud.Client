@@ -5,6 +5,5 @@ namespace RobloxCloudApi.APITypes.ListTypes;
 
 public class DataStoreList : ListResponseBase<DataStoreInfo>
 {
-    [JsonPropertyName("dataStores")]
-    public override DataStoreInfo[]? List { get; set; }
+    [JsonPropertyName("dataStores")] public override DataStoreInfo[]? List { get; set; }
 }

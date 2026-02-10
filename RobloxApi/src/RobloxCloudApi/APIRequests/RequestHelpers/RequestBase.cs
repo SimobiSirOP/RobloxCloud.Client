@@ -7,11 +7,9 @@ namespace RobloxCloudApi.APIRequests.RequestHelpers;
 
 public abstract class RequestBase<TResponse> : IRequest<TResponse>
 {
-    [JsonIgnore]
-    public abstract HttpMethod HttpMethod { get; }
-    
-    [JsonPropertyName("path")]
-    public abstract string RequestPath { get; }
+    [JsonIgnore] public abstract HttpMethod HttpMethod { get; }
+
+    [JsonPropertyName("path")] public abstract string RequestPath { get; }
 
     public HttpContent? GetHttpContent()
     {
@@ -25,47 +23,46 @@ public abstract class RequestBase<TResponse> : IRequest<TResponse>
         var properties = GetType().GetProperties()
             .Where(parameter => Attribute.IsDefined(parameter, typeof(QueryParameter)));
 
-        StringBuilder queryAdditionString =  new StringBuilder();
+        var queryAdditionString = new StringBuilder();
         foreach (var parameter in properties)
         {
             var rawValue = parameter.GetValue(this);
-            object paramValue;
-            if (rawValue.GetType().IsEnum)
+            object? paramValue;
+            if (rawValue != null && rawValue.GetType().IsEnum)
                 paramValue = nameof(rawValue);
             else paramValue = rawValue;
-                
-            
-            QueryParameter queryParameter =
+
+
+            var queryParameter =
                 (QueryParameter)Attribute.GetCustomAttribute(parameter, typeof(QueryParameter))!;
-            
+
             var paramName = queryParameter.Name ?? parameter.Name;
-            
+
             if (queryAdditionString.Length > 0)
                 queryAdditionString.Append("&");
-            
+
             if (paramValue != null)
                 queryAdditionString.Append($"{paramName}={paramValue.ToString()}");
             else if (!queryParameter.IgnoreWhenNull)
                 queryAdditionString.Append($"{paramName}");
         }
-        
+
         if (queryAdditionString.Length > 0)
-            return RequestPath + "?" + queryAdditionString.ToString();
+            return RequestPath + "?" + queryAdditionString;
         return RequestPath;
     }
 }
 
-
 [AttributeUsage(AttributeTargets.Property)]
 public class QueryParameter : Attribute
 {
-    public string? Name { get; }
-    
-    public bool IgnoreWhenNull { get; }
-
     public QueryParameter(string? name = null, bool ignoreWhenNull = false)
     {
         Name = name;
         IgnoreWhenNull = ignoreWhenNull;
     }
+
+    public string? Name { get; }
+
+    public bool IgnoreWhenNull { get; }
 }

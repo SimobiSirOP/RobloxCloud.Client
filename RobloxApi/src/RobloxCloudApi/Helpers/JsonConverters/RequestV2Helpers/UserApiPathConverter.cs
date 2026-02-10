@@ -37,7 +37,7 @@ public class UserApiPathArrayConverter : JsonConverter<long[]>
 
             var strValue = reader.GetString();
             var match = Regex.Match(strValue ?? "", @"^users/(\d+)$");
-            
+
             if (!match.Success)
                 throw new JsonException($"Invalid user path format: {strValue}");
 
@@ -50,10 +50,7 @@ public class UserApiPathArrayConverter : JsonConverter<long[]>
     public override void Write(Utf8JsonWriter writer, long[] value, JsonSerializerOptions options)
     {
         writer.WriteStartArray();
-        foreach (var item in value)
-        {
-            writer.WriteStringValue($"users/{item}");
-        }
+        foreach (var item in value) writer.WriteStringValue($"users/{item}");
         writer.WriteEndArray();
     }
 }

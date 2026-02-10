@@ -15,17 +15,20 @@ public static class ErrorParser
         if (error.ErrorCode == null)
             return await GetErrorStringFromArray(response);
 
-        return await GetBasicErrorString(response) + error.ToString() ;
-
+        return await GetBasicErrorString(response) + error;
     }
 
     private static async Task<string> GetErrorStringFromArray(HttpResponseMessage response)
     {
-        var errorMessage = Serializer.SerializeFromString<ErrorResponseArray>(await response.Content.ReadAsStringAsync());
-        if (errorMessage == null)
+        var errorMessage =
+            Serializer.SerializeFromString<ErrorResponseArray>(await response.Content.ReadAsStringAsync());
+        if (errorMessage == null!)
             return await GetBasicErrorString(response);
-        
+
         StringBuilder newErrorString = new(await GetBasicErrorString(response));
+        
+        if (errorMessage.List == null) return newErrorString.ToString();
+        
         foreach (var error in errorMessage.List)
             newErrorString.AppendLine(error.ToString());
         return newErrorString.ToString();
@@ -35,13 +38,9 @@ public static class ErrorParser
     {
         return $"{(int)response.StatusCode}: {response.ReasonPhrase}\n";
     }
-    
+
     private class ErrorResponseArray : ListResponseBase<RobloxError>
     {
-        [JsonPropertyName("errors")]
-        public override RobloxError[]? List { get; set; }
+        [JsonPropertyName("errors")] public override RobloxError[]? List { get; set; }
     }
 }
-
-
-

@@ -4,7 +4,7 @@ namespace UnitTests;
 
 public static class Globals
 {
-    public static IRobloxApiClient Client { get; set; }
+    public static IRobloxApiClient Client { get; set; } = null!;
     public static long TestUniverseId { get; set; }
 }
 
@@ -16,6 +16,7 @@ public class GlobalInit
     {
         var botToken = System.Environment.GetEnvironmentVariable("ROBLOX_API_TOKEN");
         Globals.TestUniverseId = long.Parse(System.Environment.GetEnvironmentVariable("ROBLOX_UNIVERSE_ID")!);
-        Globals.Client = new RobloxApiClient(new RobloxApiClientSettings(botToken, TimeSpan.FromSeconds(20), 7));
+        Globals.Client = new RobloxApiClient(new RobloxApiClientSettings(botToken!, TimeSpan.FromSeconds(20), 7));
+
     }
 }

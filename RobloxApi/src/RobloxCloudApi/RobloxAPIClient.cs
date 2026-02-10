@@ -12,17 +12,17 @@ public class RobloxApiClient : IRobloxApiClient
 {
     private readonly HttpClient _httpClient;
 
-    private RobloxApiClientSettings _robloxApiClientSettings { get; set; }
     public RobloxApiClient(RobloxApiClientSettings robloxApiClientSettings, HttpClient? httpClient = default)
     {
         _robloxApiClientSettings = robloxApiClientSettings;
-        this._httpClient = httpClient ??
-                           new HttpClient(new SocketsHttpHandler()
-                               { PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1) });
-        this._httpClient.DefaultRequestHeaders.Add("x-api-key", _robloxApiClientSettings.ApiKey);
+        _httpClient = httpClient ??
+                      new HttpClient(new SocketsHttpHandler
+                          { PooledConnectionIdleTimeout = TimeSpan.FromMinutes(1) });
+        _httpClient.DefaultRequestHeaders.Add("x-api-key", _robloxApiClientSettings.ApiKey);
     }
-    
-    
+
+    private RobloxApiClientSettings _robloxApiClientSettings { get; set; }
+
 
     public async Task<TResponse?> SendRequest<TResponse>(IRequest<TResponse> request)
     {
@@ -31,11 +31,11 @@ public class RobloxApiClient : IRobloxApiClient
 
         using var requestContent = request.GetHttpContent();
 
-        for (int attempts=0;;attempts++)
+        for (var attempts = 0;; attempts++)
         {
             using var httpRequest = new HttpRequestMessage(request.HttpMethod, request.GetRequestUri());
             httpRequest.Content = requestContent;
-            if (requestContent != null) 
+            if (requestContent != null)
                 await requestContent.LoadIntoBufferAsync().ConfigureAwait(false);
 
             HttpResponseMessage httpResponseMessage;
@@ -45,7 +45,7 @@ public class RobloxApiClient : IRobloxApiClient
             }
             catch (TaskCanceledException exception)
             {
-                throw new TimeoutException("Request timed out: ",  exception);
+                throw new TimeoutException("Request timed out: ", exception);
             }
             catch (Exception exception)
             {
@@ -56,30 +56,25 @@ public class RobloxApiClient : IRobloxApiClient
             {
                 if (!httpResponseMessage.IsSuccessStatusCode)
                 {
-                    if (httpResponseMessage.StatusCode == HttpStatusCode.TooManyRequests && attempts <=_robloxApiClientSettings.AmountOfRetries)
+                    if (httpResponseMessage.StatusCode == HttpStatusCode.TooManyRequests &&
+                        attempts <= _robloxApiClientSettings.AmountOfRetries)
                     {
                         await Task.Delay(_robloxApiClientSettings.Timeout).ConfigureAwait(false);
                         continue;
                     }
+
                     throw new RobloxApiException(await ErrorParser.GetErrorString(httpResponseMessage));
                 }
-                
+
                 return Serializer.SerializeFromString<TResponse>(
                     await httpResponseMessage.Content.ReadAsStringAsync());
             }
         }
     }
-    
 }
 
 public class RobloxApiClientSettings
 {
-    public string ApiKey { get; }
-    
-    public TimeSpan Timeout { get; }
-    
-    public int AmountOfRetries { get; }
-
     public RobloxApiClientSettings(string apiKey, TimeSpan requestTimeout, int requestRetryAmount = 5)
     {
         ApiKey = apiKey;
@@ -93,4 +88,10 @@ public class RobloxApiClientSettings
         Timeout = new TimeSpan(0, 0, 5);
         AmountOfRetries = requestRetryAmount;
     }
+
+    public string ApiKey { get; }
+
+    public TimeSpan Timeout { get; }
+
+    public int AmountOfRetries { get; }
 }

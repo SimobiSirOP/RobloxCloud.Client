@@ -4,14 +4,12 @@ namespace RobloxCloudApi.APIRequests.RequestHelpers;
 
 public abstract class OldListResponseBase<T>
 {
-    [JsonPropertyName("previousPageCursor")] 
+    [JsonPropertyName("previousPageCursor")]
     public string? PreviousPageCursor { get; set; }
-    
-    [JsonPropertyName("nextPageCursor")] 
-    public string? NextPageCursor { get; set; }
-    
-    [JsonPropertyName("data")]
-    public virtual T[]? List { get; set; }
+
+    [JsonPropertyName("nextPageCursor")] public string? NextPageCursor { get; set; }
+
+    [JsonPropertyName("data")] public virtual T[]? List { get; set; }
 
     public T[]? AsArray()
     {

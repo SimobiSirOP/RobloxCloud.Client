@@ -2,7 +2,7 @@
 
 namespace RobloxCloudApi.APITypes.Operations;
 
-internal class OperationRequest<T>(string path) 
+internal class OperationRequest<T>(string path)
     : RequestBase<T> where T : IOperation
 {
     public override HttpMethod HttpMethod { get; } = HttpMethod.Get;

@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization.Formatters.Binary;
-using System.Text.Encodings.Web;
+﻿using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
@@ -18,7 +17,7 @@ public class Serializer
         PropertyNameCaseInsensitive = true,
         TypeInfoResolver = new DefaultJsonTypeInfoResolver(),
         AllowTrailingCommas = true,
-        ReadCommentHandling =  JsonCommentHandling.Skip,
+        ReadCommentHandling = JsonCommentHandling.Skip
     };
 
 
@@ -32,11 +31,12 @@ public class Serializer
     {
         return JsonSerializer.SerializeToUtf8Bytes(objectToConvert, DefaultSettings);
     }
-    
+
     public static T ConvertBytesToObject<T>(byte[] bytes)
     {
         return JsonSerializer.Deserialize<T>(bytes, DefaultSettings)!;
     }
+
     /// <summary>
     ///     Serializes an object to JSON/>
     /// </summary>
@@ -63,19 +63,17 @@ public class Serializer
     {
         if (string.IsNullOrWhiteSpace(path) && !string.IsNullOrWhiteSpace(json))
             return SerializeFromString<T>(json);
-        
-        using JsonDocument doc = SerializeFromString<JsonDocument>(json);
-        JsonElement currentElement = doc.RootElement;
-        string[] segments = path.Trim().Split(new[] { '/', '.', '\\', ',' });
-        
+
+        using var doc = SerializeFromString<JsonDocument>(json);
+        var currentElement = doc.RootElement;
+        var segments = path.Trim().Split('/', '.', '\\', ',');
+
         foreach (var segment in segments)
-        {
             if (currentElement.ValueKind == JsonValueKind.Object &&
                 currentElement.TryGetProperty(segment, out var nextElement))
                 currentElement = nextElement;
             else
                 throw new JsonException($"Path segment '{segment}' not found in the JSON structure.");
-        }
 
         return currentElement.Deserialize<T>(DefaultSettings)!;
     }

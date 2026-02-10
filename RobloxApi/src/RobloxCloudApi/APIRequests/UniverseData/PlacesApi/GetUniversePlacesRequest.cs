@@ -8,10 +8,8 @@ public class GetUniversePlacesRequest : OldListRequestBase<PlaceInfoList>
 {
     public override HttpMethod HttpMethod { get; } = HttpMethod.Get;
     public override string RequestPath => $"https://develop.roblox.com/v1/universes/{UniverseId}/places";
-    
-    [JsonIgnore]
-    public long? UniverseId { get; set; }
-    
-    [QueryParameter("isUniverseCreation")]
-    public bool? IsUniverseCreation { get; set; }
+
+    [JsonIgnore] public long? UniverseId { get; set; }
+
+    [QueryParameter("isUniverseCreation")] public bool? IsUniverseCreation { get; set; }
 }

@@ -5,6 +5,5 @@ namespace RobloxCloudApi.APITypes.ListTypes;
 
 public class RestrictionList : ListResponseBase<RestrictionData>
 {
-    [JsonPropertyName("userRestrictions")]
-    public override RestrictionData[]? List { get; set; }
+    [JsonPropertyName("userRestrictions")] public override RestrictionData[]? List { get; set; }
 }

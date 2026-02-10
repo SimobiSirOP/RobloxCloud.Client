@@ -1,28 +1,19 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.Abstractions;
-using RobloxCloudApi.ErrorHandling;
-using RobloxCloudApi.Helpers;
 
 namespace RobloxCloudApi.APITypes.Operations;
 
 public class RobloxOperation : BaseOperation
 {
-    [JsonPropertyName("done")]
-    public bool? Done { get; set; }
-    
-    [JsonPropertyName("metadata")]
-    public RobloxDetails? Metadata { get; set; }
-    
-    [JsonPropertyName("error")]
-    public RobloxError? Error { get; set; }
-    
-    [JsonPropertyName("response")]
-    public RobloxDetails? Result { get; set; }
-    
+    [JsonPropertyName("done")] public bool? Done { get; set; }
+
+    [JsonPropertyName("metadata")] public RobloxDetails? Metadata { get; set; }
+
+    [JsonPropertyName("error")] public RobloxError? Error { get; set; }
+
+    [JsonPropertyName("response")] public RobloxDetails? Result { get; set; }
+
     public override bool IsCompleted()
     {
         return Done ?? false;
     }
-    
-    
 }

@@ -4,11 +4,9 @@ namespace RobloxCloudApi.APIRequests.Abstractions;
 
 public interface IRequest
 {
-    [JsonIgnore]
-    public HttpMethod HttpMethod { get; }
-    
-    [JsonIgnore]
-    public string RequestPath { get; }
+    [JsonIgnore] public HttpMethod HttpMethod { get; }
+
+    [JsonIgnore] public string RequestPath { get; }
 
     public HttpContent? GetHttpContent();
 

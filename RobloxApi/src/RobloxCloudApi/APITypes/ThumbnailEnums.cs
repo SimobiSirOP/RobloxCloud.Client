@@ -3,14 +3,15 @@
 public enum RobloxThumbnailShape
 {
     ROUND,
-    SQUARE,
+    SQUARE
 }
+
 public enum RobloxThumbnailFormat
 {
     PNG,
-    JPG,
+    JPG
 }
-    
+
 // 48, 50, 60, 75, 100, 110, 150, 180, 352, 420, 720. Default is 420. 
 public enum RobloxThumbnailSize
 {
@@ -24,6 +25,5 @@ public enum RobloxThumbnailSize
     Size180,
     Size352,
     Size420,
-    Size720,
+    Size720
 }
-

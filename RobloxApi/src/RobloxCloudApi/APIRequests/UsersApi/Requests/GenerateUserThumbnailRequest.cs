@@ -24,6 +24,7 @@ public class GenerateUserThumbnailRequest : RequestBase<RobloxOperation>
     ///     <see href="https://create.roblox.com/docs/cloud/reference/features/users#Cloud_GenerateUserThumbnail" />
     /// </summary>
     [QueryParameter("format")]
+    [QueryEnumToString]
     [JsonConverter(typeof(JsonStringEnumConverter<RobloxThumbnailFormat>))]
     public RobloxThumbnailFormat? Format { get; set; }
 
@@ -33,5 +34,6 @@ public class GenerateUserThumbnailRequest : RequestBase<RobloxOperation>
     /// </summary>
     [QueryParameter("shape")]
     [JsonConverter(typeof(JsonStringEnumConverter<RobloxThumbnailShape>))]
+    [QueryEnumToString]
     public RobloxThumbnailShape? Shape { get; set; }
 }

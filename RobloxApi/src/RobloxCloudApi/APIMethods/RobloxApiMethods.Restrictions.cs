@@ -68,8 +68,9 @@ public static partial class RobloxApiMethods
     /// <param name="startTime">Start time of a restriction</param>
     /// <param name="duration">Duration of a restriction</param>
     /// <param name="displayReason">Public reason of a restriction</param>
-    /// <param name="privateReason">Reason, that only developers can see</param>
+    /// <param name="privateReason">Reason that only developers can see</param>
     /// <param name="excludeAlts">Should this restriction also apply to alt accounts</param>
+    /// <param name="inherited">Should this restriction be inherited by other users</param>
     /// <returns>An Instance of <see cref="RestrictionData" /></returns>
     public static async Task<RestrictionData> SetUserRestrictionsInUniverse(
         this IRobloxApiClient client,
@@ -77,10 +78,11 @@ public static partial class RobloxApiMethods
         long universeId,
         bool active,
         DateTime startTime,
-        long? duration,
+        string? duration,
         string displayReason,
         string privateReason,
-        bool excludeAlts = true)
+        bool excludeAlts = true,
+        bool inherited = true)
     {
         return (await client.ThrowIfNull().SendRequest(new RestrictionRequest(
             universeId, userId, new GameJoinRestriction
@@ -90,7 +92,8 @@ public static partial class RobloxApiMethods
                 Duration = duration,
                 DisplayReason = displayReason,
                 PrivateReason = privateReason,
-                ExcludeAltAccounts = excludeAlts
+                ExcludeAltAccounts = excludeAlts,
+                Inherited = inherited
             })))!;
     }
 
@@ -100,7 +103,7 @@ public static partial class RobloxApiMethods
     /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
     /// <param name="userId">A Roblox user ID</param>
     /// <param name="universeId">A Roblox universe ID</param>
-    /// <param name="duration">Duration of a ban</param>
+    /// <param name="duration">Duration of a ban in seconds</param>
     /// <param name="displayReason">Public reason of a ban</param>
     /// <param name="privateReason">A reason only for developers to see</param>
     /// <param name="excludeAlts">Should it ban alt accounts too or not</param>
@@ -114,7 +117,7 @@ public static partial class RobloxApiMethods
         string? privateReason = null,
         bool excludeAlts = true)
     {
-        return await client.SetUserRestrictionsInUniverse(userId, universeId, true, DateTime.UtcNow, duration,
+        return await client.SetUserRestrictionsInUniverse(userId, universeId, true, DateTime.UtcNow, duration != null ? duration + "s" : null,
             displayReason, privateReason ?? displayReason, excludeAlts);
     }
 
@@ -130,7 +133,7 @@ public static partial class RobloxApiMethods
         long userId,
         long universeId)
     {
-        return await client.SetUserRestrictionsInUniverse(userId, universeId, false, DateTime.UtcNow, 0, string.Empty,
+        return await client.SetUserRestrictionsInUniverse(userId, universeId, false, DateTime.UtcNow, null, string.Empty,
             string.Empty);
     }
 }

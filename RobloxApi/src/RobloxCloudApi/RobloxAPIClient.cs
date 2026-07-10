@@ -29,12 +29,12 @@ public class RobloxApiClient : IRobloxApiClient
         if (request is null)
             throw new ArgumentNullException(nameof(request));
 
-        using var requestContent = request.GetHttpContent();
-
         for (var attempts = 0;; attempts++)
         {
             using var httpRequest = new HttpRequestMessage(request.HttpMethod, request.GetRequestUri());
+            var requestContent = request.GetHttpContent();
             httpRequest.Content = requestContent;
+
             if (requestContent != null)
                 await requestContent.LoadIntoBufferAsync().ConfigureAwait(false);
 

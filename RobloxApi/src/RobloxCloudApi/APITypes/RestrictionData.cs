@@ -16,8 +16,9 @@ public class GameJoinRestriction
 
     [JsonPropertyName("displayReason")] public string? DisplayReason;
 
-    [JsonPropertyName("duration")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public long? Duration;
+    [JsonPropertyName("duration")] 
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Duration;
 
     [JsonPropertyName("excludeAltAccounts")]
     public bool? ExcludeAltAccounts;

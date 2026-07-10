@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
 using RobloxCloudApi.APIRequests.Abstractions;
+using RobloxCloudApi.APITypes;
 using RobloxCloudApi.Helpers;
 
 namespace RobloxCloudApi.APIRequests.RequestHelpers;
@@ -29,7 +30,10 @@ public abstract class RequestBase<TResponse> : IRequest<TResponse>
             var rawValue = parameter.GetValue(this);
             object? paramValue;
             if (rawValue != null && rawValue.GetType().IsEnum)
-                paramValue = nameof(rawValue);
+                if (Attribute.IsDefined(parameter, typeof(QueryEnumToString)))
+                    paramValue = rawValue.ToString();
+                else
+                    paramValue = (int)(rawValue);
             else paramValue = rawValue;
 
 
@@ -65,4 +69,11 @@ public class QueryParameter : Attribute
     public string? Name { get; }
 
     public bool IgnoreWhenNull { get; }
+}
+
+[AttributeUsage(AttributeTargets.Property)]
+public class QueryEnumToString : Attribute
+{
+    public QueryEnumToString()
+    {}
 }

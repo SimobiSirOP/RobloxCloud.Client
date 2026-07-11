@@ -12,7 +12,6 @@
         <Version>0.0.3</Version>
         <Title>A roblox client that accesses Cloud API</Title>
         <Authors>SimobiSirOP</Authors>
-
         <Copyright>Copyright © SimobiSirOP 2026</Copyright>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageProjectUrl>https://github.com/SimobiSirOP/RobloxCloud.Client</PackageProjectUrl>

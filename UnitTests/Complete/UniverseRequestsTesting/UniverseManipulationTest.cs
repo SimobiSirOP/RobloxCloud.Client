@@ -1,6 +1,6 @@
-﻿using RobloxCloudApi.RobloxCloudApi.APIMethods;
+﻿using RobloxCloudApi;
 
-namespace UnitTests.Complete;
+namespace UnitTests.Complete.UniverseRequestsTesting;
 
 [Category("Complete")]
 [TestFixture]

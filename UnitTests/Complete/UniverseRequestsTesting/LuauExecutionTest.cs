@@ -1,8 +1,8 @@
-﻿using RobloxCloudApi.RobloxCloudApi.APIMethods;
-using RobloxCloudApi.RobloxCloudApi.APITypes.Operations;
-using RobloxCloudApi.RobloxCloudApi.APITypes.RobloxGeneralTypes;
+﻿using RobloxCloudApi;
+using RobloxCloudApi.APITypes.Operations;
+using RobloxCloudApi.APITypes.RobloxGeneralTypes;
 
-namespace UnitTests.Complete;
+namespace UnitTests.Complete.UniverseRequestsTesting;
 
 [Category("Basic")]
 [Category("Complete")]

@@ -4,7 +4,7 @@ using RobloxCloudApi.Helpers.JsonConverters;
 
 namespace RobloxCloudApi.APITypes;
 
-public class DataStoreInfo : ApiDataBase
+public class DataStoreInfo : ApiBaseData
 {
     [JsonConverter(typeof(JsonStringEnumConverter<DataStoreState>))] [JsonPropertyName("state")]
     public DataStoreState? State;

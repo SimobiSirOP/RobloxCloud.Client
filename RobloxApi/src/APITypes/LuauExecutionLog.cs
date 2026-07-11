@@ -3,7 +3,7 @@ using RobloxCloudApi.APIRequests.Abstractions;
 
 namespace RobloxCloudApi.APITypes;
 
-public class LuauExecutionLog : ApiDataBase
+public class LuauExecutionLog : ApiBaseData
 {
     [JsonPropertyName("messages")] public RobloxMessage[]? Messages { get; set; }
 

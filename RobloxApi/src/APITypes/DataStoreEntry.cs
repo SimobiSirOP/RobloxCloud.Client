@@ -5,7 +5,7 @@ using RobloxCloudApi.Helpers.JsonConverters.RequestV2Helpers;
 
 namespace RobloxCloudApi.APITypes;
 
-public class DataStoreEntry : ApiDataBase
+public class DataStoreEntry : ApiBaseData
 {
     /// <summary>
     ///     State of an entry

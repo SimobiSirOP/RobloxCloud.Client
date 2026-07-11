@@ -1,9 +1,12 @@
 ﻿using RobloxCloudApi.APIRequests.DataStores;
+using RobloxCloudApi.APIRequests.DataStores.OrderedDataStore;
 using RobloxCloudApi.APITypes;
 using RobloxCloudApi.APITypes.ListTypes;
 using RobloxCloudApi.Helpers;
 
 namespace RobloxCloudApi;
+
+#pragma warning disable CS8603
 
 public static partial class RobloxApiMethods
 {
@@ -13,16 +16,18 @@ public static partial class RobloxApiMethods
     /// </summary>
     /// <param name="client">The instance of <see cref="IRobloxApiClient" /></param>
     /// <param name="universeId">A roblox universe ID</param>
-    /// <param name="pageToken">A pageToken of next list page</param>
+    /// <param name="pageToken">A pageToken of the next list page</param>
     /// <param name="maxPageSize">Size of a page, a number between 1 and 100</param>
-    /// <param name="showDeleted">Should it return deleted DataStores or not</param>
+    /// <param name="showDeleted">Specifies returning of deleted dataStores</param>
+    /// <param name="startsWith">Optional filtering the id of DataStore by its starting characters</param>
     /// <returns>An instance of <see cref="DataStoreList" /></returns>
     public static async Task<DataStoreList> GetDataStores(
         this IRobloxApiClient client,
         long universeId,
         string? pageToken = null,
         int maxPageSize = 10,
-        bool showDeleted = false
+        bool showDeleted = false,
+        string? startsWith = null
     )
     {
         return (await client.ThrowIfNull().SendRequest(
@@ -31,25 +36,28 @@ public static partial class RobloxApiMethods
                 PageToken = pageToken,
                 MaxPageSize = maxPageSize,
                 ShowDeleted = showDeleted,
-                UniverseId = universeId
-            }))!;
+                UniverseId = universeId,
+                Filter = startsWith != null ? $"id.startsWith(\"{startsWith}\")" : null
+            }));
     }
 
     /// <summary>
-    ///     Use this method to get all dataStores in universe
+    ///     Use this method to get all dataStores in the universe
     /// </summary>
     /// <param name="client">The instance of <see cref="IRobloxApiClient" /></param>
     /// <param name="universeId">A roblox universe ID</param>
-    /// <param name="pageToken">A pageToken of next list page</param>
+    /// <param name="pageToken">A pageToken of the next list page</param>
     /// <param name="maxPageSize">Size of a page, a number between 1 and 100</param>
-    /// <param name="showDeleted">Should it return deleted DataStores or not</param>
+    /// <param name="showDeleted">Specifies automatic creation of an entry if it doesn't exist</param>
+    /// <param name="startsWith">Optional filtering the id of DataStore by its starting characters</param>
     /// <returns>A list of <see cref="DataStoreInfo" /></returns>
     public static async Task<List<DataStoreInfo>> GetAllDataStores(
         this IRobloxApiClient client,
         long universeId,
         string? pageToken = null,
         int maxPageSize = 10,
-        bool showDeleted = false
+        bool showDeleted = false,
+        string? startsWith = null
     )
     {
         var dataStores = new List<DataStoreInfo>();
@@ -57,10 +65,10 @@ public static partial class RobloxApiMethods
         string? currentPageToken = null;
         do
         {
-            tempList = await client.GetDataStores(universeId, currentPageToken, 100, true);
+            tempList = await client.GetDataStores(universeId, currentPageToken, 100, true, startsWith);
             if (tempList.List == null)
                 break;
-            dataStores.AddRange(tempList.List!);
+            dataStores.AddRange(tempList.List);
             currentPageToken = tempList.NextPageToken;
         } while (tempList.NextPageToken != null);
 
@@ -68,7 +76,7 @@ public static partial class RobloxApiMethods
     }
 
     /// <summary>
-    ///     Use this method to delete DataStore. It sets state of DataStore to "DELETED" to delete DataStore
+    ///     Use this method to delete DataStore. It sets the state of DataStore to "DELETED" to delete DataStore
     /// </summary>
     /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
     /// <param name="universeId">A roblox universe ID</param>
@@ -85,11 +93,11 @@ public static partial class RobloxApiMethods
                 UniverseId = universeId,
                 DataStoreId = dataStoreId
             }
-        ))!;
+        ));
     }
 
     /// <summary>
-    ///     Use this method to undelete DataStore. It sets state of DataStore back to "ACTIVE"
+    ///     Use this method to undelete DataStore. It sets the state of DataStore back to "ACTIVE"
     /// </summary>
     /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
     /// <param name="universeId">A roblox universe ID</param>
@@ -106,7 +114,7 @@ public static partial class RobloxApiMethods
                 UniverseId = universeId,
                 DataStoreId = dataStoreId
             }
-        ))!;
+        ));
     }
 
 
@@ -123,7 +131,8 @@ public static partial class RobloxApiMethods
     {
         const string tempEntryId = "TempEntry2";
         var dataStores = await client.GetAllDataStores(universeId);
-        // During tested encountered an error of having a dataStore already. So we will get it back!
+        
+        // Necromancy is needed.
         if (dataStores.Exists(x => x.Id == newDataStoreId))
         {
             var thisDataStore = dataStores.First(x => x.Id == newDataStoreId);
@@ -135,7 +144,7 @@ public static partial class RobloxApiMethods
         // Creating by creating an entry and deleting it right after
         await client.CreateDataStoreEntry(
             universeId, newDataStoreId, tempEntryId, "Entry created during dataStoreCreation",
-            new long[] { 123 });
+            [123]);
         await client.DeleteDataStoreEntry(universeId, newDataStoreId, tempEntryId);
     }
 
@@ -148,7 +157,8 @@ public static partial class RobloxApiMethods
     /// <param name="scopeId">A scope of DataStore if needed</param>
     /// <param name="pageToken">A pageToken of next ListPage</param>
     /// <param name="maxPageSize">A number of items to return, a value between 1 and 100</param>
-    /// <param name="showDeleted">Should is also return deleted entries or not</param>
+    /// <param name="showDeleted">Specifies returning of deleted entries</param>
+    /// <param name="startsWith">Optional filtering id's of entries by its starting characters</param>
     /// <returns>An instance of <see cref="DataStoreEntryList" /></returns>
     public static async Task<DataStoreEntryList> GetDataStoreEntries(
         this IRobloxApiClient client,
@@ -157,7 +167,8 @@ public static partial class RobloxApiMethods
         string? scopeId = null,
         string? pageToken = null,
         int maxPageSize = 10,
-        bool showDeleted = false)
+        bool showDeleted = false,
+        string? startsWith = null)
     {
         return (await client.ThrowIfNull().SendRequest(new ListDataStoreEntriesRequest
         {
@@ -166,8 +177,9 @@ public static partial class RobloxApiMethods
             ScopeId = scopeId,
             PageToken = pageToken,
             MaxPageSize = maxPageSize,
-            ShowDeleted = showDeleted
-        }))!;
+            ShowDeleted = showDeleted,
+            Filter = startsWith != null ? $"id.startsWith(\"{startsWith}\")" : null
+        }));
     }
 
     /// <summary>
@@ -180,7 +192,8 @@ public static partial class RobloxApiMethods
     /// <param name="entryId">An ID of DataStore entry</param>
     /// <param name="pageToken">A pageToken of next ListPage</param>
     /// <param name="maxPageSize">A number of items to return, a value between 1 and 100</param>
-    /// <param name="showDeleted">Should is also return deleted entries or not</param>
+    /// <param name="showDeleted">Specifies returning of deleted entries</param>
+    /// <param name="filter">Optional filtering of revisions. See <see href="https://create.roblox.com/docs/cloud/reference/features/storage#Cloud_DeleteDataStoreEntry__Using_Universes_DataStores_Scopes"/> </param>
     /// <returns>An instance of <see cref="DataStoreEntryList" /></returns>
     public static async Task<DataStoreEntryList> GetDataStoreEntryRevisions(
         this IRobloxApiClient client,
@@ -190,7 +203,8 @@ public static partial class RobloxApiMethods
         string? scopeId = null,
         string? pageToken = null,
         int maxPageSize = 10,
-        bool showDeleted = false
+        bool showDeleted = false,
+        string? filter = null
     )
     {
         return (await client.ThrowIfNull().SendRequest(new GetDataStoreEntryRevisionsRequest
@@ -201,8 +215,9 @@ public static partial class RobloxApiMethods
             PageToken = pageToken,
             MaxPageSize = maxPageSize,
             ShowDeleted = showDeleted,
-            UniverseId = universeId
-        }))!;
+            UniverseId = universeId,
+            Filter = filter,
+        }));
     }
 
     /// <summary>
@@ -221,13 +236,13 @@ public static partial class RobloxApiMethods
         string entryId,
         string? scopeId = null)
     {
-        return (await client.ThrowIfNull().SendRequest(new GetDataStoreEntryRequest
+        return await client.ThrowIfNull().SendRequest(new GetDataStoreEntryRequest
         {
             DataStoreId = dataStoreId,
             UniverseId = universeId,
             EntryId = entryId,
             ScopeId = scopeId
-        }))!;
+        });
     }
 
     /// <summary>
@@ -242,7 +257,7 @@ public static partial class RobloxApiMethods
     /// <param name="dataStoreUsersIds">A list of User id's affected by dataStore</param>
     /// <param name="attributes">A DataStore attributes</param>
     /// <param name="eTag">Etag of a DataStore</param>
-    /// <param name="allowMissing">Should it create an entry if it doesn't exist or not</param>
+    /// <param name="allowMissing">Specifies if updating entry should automatically create it if it doesn't exist</param>
     /// <returns>An updated instance of <see cref="DataStoreEntry" /></returns>
     public static async Task<DataStoreEntry> UpdateDataStoreEntry(
         this IRobloxApiClient client,
@@ -257,7 +272,7 @@ public static partial class RobloxApiMethods
         string? eTag = null
     )
     {
-        return (await client.ThrowIfNull().SendRequest(new UpdateDataStoreEntryRequest
+        return await client.ThrowIfNull().SendRequest(new UpdateDataStoreEntryRequest
         {
             UniverseId = universeId,
             DataStoreId = dataStoreId,
@@ -268,7 +283,7 @@ public static partial class RobloxApiMethods
             Users = dataStoreUsersIds,
             ETag = eTag,
             AllowMissing = allowMissing
-        }))!;
+        });
     }
 
 
@@ -283,7 +298,7 @@ public static partial class RobloxApiMethods
     /// <param name="dataStoreUsersIds">A list of User id's affected by dataStore</param>
     /// <param name="attributes">A DataStore attributes</param>
     /// <param name="eTag">Etag of a DataStore</param>
-    /// <param name="allowMissing">Should it create an entry if it doesn't exist or not</param>
+    /// <param name="allowMissing">Specifies if updating entry should automatically create it if it doesn't exist</param>
     /// <returns>An updated instance of <see cref="DataStoreEntry" /></returns>
     public static async Task<DataStoreEntry> UpdateDataStoreEntry(
         this IRobloxApiClient client,
@@ -352,7 +367,7 @@ public static partial class RobloxApiMethods
         string? eTag = null
     )
     {
-        return (await client.ThrowIfNull().SendRequest(new CreateDataStoreEntryRequest
+        return await client.ThrowIfNull().SendRequest(new CreateDataStoreEntryRequest
         {
             UniverseId = universeId,
             DataStoreId = dataStoreId,
@@ -362,7 +377,7 @@ public static partial class RobloxApiMethods
             Attributes = attributes,
             Users = dataStoreUsersIds,
             ETag = eTag
-        }))!;
+        });
     }
 
     /// <summary>
@@ -415,7 +430,7 @@ public static partial class RobloxApiMethods
         object? attributes = null
     )
     {
-        return (await client.ThrowIfNull().SendRequest(new IncrementDataStoreEntryRequest
+        return await client.ThrowIfNull().SendRequest(new IncrementDataStoreEntryRequest
         {
             UniverseId = universeId,
             DataStoreId = dataStoreId,
@@ -424,7 +439,7 @@ public static partial class RobloxApiMethods
             Amount = amount,
             Attributes = attributes,
             Users = dataStoreUsersIds
-        }))!;
+        });
     }
 
     /// <summary>
@@ -448,16 +463,193 @@ public static partial class RobloxApiMethods
         object? attributes = null
     )
     {
-        return (await client.IncrementDataStoreEntry(universeId, dataStoreId, entryId, null, amount, dataStoreUsersIds));
+        return await client.IncrementDataStoreEntry(universeId, dataStoreId, entryId, null, amount, dataStoreUsersIds);
     }
 
     public static async Task<SnapshotResult> SnapshotDataStores(
         this IRobloxApiClient client,
         long universeId)
     {
-        return (await client.ThrowIfNull().SendRequest(new SnapshotDataStoresRequest
+        return await client.ThrowIfNull().SendRequest(new SnapshotDataStoresRequest
         {
             UniverseId = universeId
-        }))!;
+        });
     }
+    
+    
+    
+    /// <summary>
+    ///     Use this method to get a list of Ordered DataStore Entries
+    /// </summary>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
+    /// <param name="universeId">A roblox universe ID</param>
+    /// <param name="dataStoreId">An Ordered DataStore ID (name)</param>
+    /// <param name="scopeId">A scope of Ordered DataStore </param>
+    /// <param name="pageToken">A pageToken of next ListPage</param>
+    /// <param name="maxPageSize">A number of items to return, a value between 1 and 100</param>
+    /// <param name="showDeleted">Specifies returning of deleted entries</param>
+    /// <param name="startsWith">Optional filtering id's of entries by its starting characters</param>
+    /// <returns>An instance of <see cref="OrderedDataStoreEntryList" /></returns>
+    public static async Task<OrderedDataStoreEntryList> GetOrderedDataStoreEntries(
+        this IRobloxApiClient client,
+        long universeId,
+        string dataStoreId,
+        string scopeId,
+        string? pageToken = null,
+        int maxPageSize = 10,
+        bool showDeleted = false,
+        string? startsWith = null)
+    {
+        return await client.ThrowIfNull().SendRequest(new ListOrderedDataStoreEntriesRequest()
+        {
+            UniverseId = universeId,
+            OrderedDataStoreId = dataStoreId,
+            ScopeId = scopeId,
+            PageToken = pageToken,
+            MaxPageSize = maxPageSize,
+            ShowDeleted = showDeleted,
+            Filter = startsWith != null ? $"id.startsWith(\"{startsWith}\")" : null
+        });
+    }
+    
+    /// <summary>
+    ///     Use this method to get an Ordered DataStore Entry
+    /// </summary>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
+    /// <param name="universeId">A roblox universe ID</param>
+    /// <param name="orderedDataStoreId">A DataStore ID (name)</param>
+    /// <param name="entryId">An id of Ordered DataStore entry</param>
+    /// <param name="scopeId">A scope of Ordered DataStore </param>
+    /// <returns>An instance of new <see cref="DataStoreEntry" /></returns>
+    public static async Task<OrderedDataStoreEntry> GetOrderedDataStoreEntry(
+        this IRobloxApiClient client,
+        long universeId,
+        string orderedDataStoreId,
+        string scopeId,
+        string entryId
+    )
+    {
+        return (await client.ThrowIfNull().SendRequest(new GetOrderedDataStoreEntryRequest()
+        {
+            UniverseId = universeId,
+            OrderedDataStoreId = orderedDataStoreId,
+            ScopeId = scopeId,
+            EntryId = entryId
+        }));
+    }
+    
+    /// <summary>
+    ///     Use this method to create a new Ordered DataStore Entry
+    /// </summary>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
+    /// <param name="universeId">A roblox universe ID</param>
+    /// <param name="orderedDataStoreId">A DataStore ID (name)</param>
+    /// <param name="entryId">An id of Ordered DataStore entry</param>
+    /// <param name="scopeId">A scope of Ordered DataStore </param>
+    /// <param name="value">New value of entry</param>
+    /// <returns>An instance of new <see cref="DataStoreEntry" /></returns>
+    public static async Task<OrderedDataStoreEntry> CreateOrderedDataStoreEntry(
+        this IRobloxApiClient client,
+        long universeId,
+        string orderedDataStoreId,
+        string scopeId,
+        string entryId,
+        long value
+    )
+    {
+        return (await client.ThrowIfNull().SendRequest(new CreateOrderedDataStoreEntryRequest()
+        {
+            UniverseId = universeId,
+            OrderedDataStoreId = orderedDataStoreId,
+            ScopeId = scopeId,
+            EntryId = entryId,
+            Value = value,
+        }));
+    }
+    
+    /// <summary>
+    ///     Use this method to update an Ordered DataStore Entry
+    /// </summary>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
+    /// <param name="universeId">A roblox universe ID</param>
+    /// <param name="orderedDataStoreId">A DataStore ID (name)</param>
+    /// <param name="entryId">An id of Ordered DataStore entry</param>
+    /// <param name="scopeId">A scope of Ordered DataStore </param>
+    /// <param name="value">New value of entry</param>
+    /// <returns>An instance of new <see cref="DataStoreEntry" /></returns>
+    public static async Task<OrderedDataStoreEntry> UpdateOrderedDataStoreEntry(
+        this IRobloxApiClient client,
+        long universeId,
+        string orderedDataStoreId,
+        string scopeId,
+        string entryId,
+        long value
+    )
+    {
+        return (await client.ThrowIfNull().SendRequest(new UpdateOrderedDataStoreEntryRequest()
+        {
+            UniverseId = universeId,
+            OrderedDataStoreId = orderedDataStoreId,
+            ScopeId = scopeId,
+            EntryId = entryId,
+            Value = value,
+        }));
+    }
+    
+    /// <summary>
+    ///     Use this method to delete an Ordered DataStore Entry
+    /// </summary>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
+    /// <param name="universeId">A roblox universe ID</param>
+    /// <param name="orderedDataStoreId">A DataStore ID (name)</param>
+    /// <param name="entryId">An id of Ordered DataStore entry</param>
+    /// <param name="scopeId">A scope of Ordered DataStore </param>
+    /// <returns>An instance of new <see cref="DataStoreEntry" /></returns>
+    public static async Task<OrderedDataStoreEntry> DeleteOrderedDataStoreEntry(
+        this IRobloxApiClient client,
+        long universeId,
+        string orderedDataStoreId,
+        string scopeId,
+        string entryId
+    )
+    {
+        return (await client.ThrowIfNull().SendRequest(new GetOrderedDataStoreEntryRequest()
+        {
+            UniverseId = universeId,
+            OrderedDataStoreId = orderedDataStoreId,
+            ScopeId = scopeId,
+            EntryId = entryId
+        }));
+    }
+    
+    /// <summary>
+    ///     Use this method to increment Ordered DataStore Entry
+    /// </summary>
+    /// <param name="client">An instance of <see cref="IRobloxApiClient" /></param>
+    /// <param name="universeId">A roblox universe ID</param>
+    /// <param name="orderedDataStoreId">A DataStore ID (name)</param>
+    /// <param name="entryId">An id of Ordered DataStore entry</param>
+    /// <param name="scopeId">A scope of Ordered DataStore </param>
+    /// <param name="amount">Amount to increment</param>
+    /// <returns>An instance of new <see cref="DataStoreEntry" /></returns>
+    public static async Task<OrderedDataStoreEntry> IncrementOrderedDataStoreEntry(
+        this IRobloxApiClient client,
+        long universeId,
+        string orderedDataStoreId,
+        string scopeId,
+        string entryId,
+        long amount
+    )
+    {
+        return (await client.ThrowIfNull().SendRequest(new IncrementOrderedDataStoreEntryRequest()
+        {
+            UniverseId = universeId,
+            OrderedDataStoreId = orderedDataStoreId,
+            ScopeId = scopeId,
+            EntryId = entryId,
+            Amount = amount,
+        }));
+    }
+    
+    #pragma warning restore CS8603
 }

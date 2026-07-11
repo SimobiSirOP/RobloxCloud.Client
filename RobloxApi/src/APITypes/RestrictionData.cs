@@ -4,7 +4,7 @@ using RobloxCloudApi.Helpers.JsonConverters;
 
 namespace RobloxCloudApi.APITypes;
 
-public class RestrictionData : ApiDataBase
+public class RestrictionData : ApiBaseData
 {
     [JsonPropertyName("gameJoinRestriction")]
     public GameJoinRestriction? GameJoinRestriction;

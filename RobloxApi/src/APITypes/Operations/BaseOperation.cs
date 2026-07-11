@@ -3,7 +3,7 @@ using RobloxCloudApi.Helpers;
 
 namespace RobloxCloudApi.APITypes.Operations;
 
-public abstract class BaseOperation : ApiDataBase, IOperation
+public abstract class BaseOperation : ApiBaseData, IOperation
 {
     public static OperationOptions OperationOptions { private get; set; } = new(TimeSpan.FromSeconds(5), 5);
     public abstract bool IsCompleted();

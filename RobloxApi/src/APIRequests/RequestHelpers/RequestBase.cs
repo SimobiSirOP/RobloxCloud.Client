@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
+using JetBrains.Annotations;
 using RobloxCloudApi.APIRequests.Abstractions;
 using RobloxCloudApi.Helpers;
 
@@ -57,6 +58,7 @@ public abstract class RequestBase<TResponse> : IRequest<TResponse>
 }
 
 [AttributeUsage(AttributeTargets.Property)]
+[MeansImplicitUse]
 public class QueryParameter : Attribute
 {
     public QueryParameter(string? name = null, bool ignoreWhenNull = false)

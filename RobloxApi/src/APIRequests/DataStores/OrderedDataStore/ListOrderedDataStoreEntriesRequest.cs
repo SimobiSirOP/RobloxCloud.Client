@@ -1,0 +1,21 @@
+﻿using System.Text.Json.Serialization;
+using RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.APITypes.ListTypes;
+
+namespace RobloxCloudApi.APIRequests.DataStores.OrderedDataStore;
+
+internal class ListOrderedDataStoreEntriesRequest : ListRequestBase<OrderedDataStoreEntryList>
+{
+    [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Get;
+
+    [JsonPropertyName("path")]
+    public override string RequestPath =>
+                $"https://apis.roblox.com/cloud/v2/universes/{UniverseId}/ordered-data-stores/{OrderedDataStoreId}/scopes/{ScopeId}/entries";
+
+
+    [JsonIgnore] public long UniverseId { get; set; }
+
+    [JsonIgnore] public string OrderedDataStoreId { get; set; } = "";
+
+    [JsonIgnore] public string ScopeId { get; set; }  = "";
+}

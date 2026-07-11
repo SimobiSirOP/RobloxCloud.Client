@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.Abstractions;
-using RobloxCloudApi.Helpers.JsonConverters;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.Abstractions;
+using RobloxCloudApi.RobloxCloudApi.Helpers.JsonConverters;
 
-namespace RobloxCloudApi.APITypes;
+namespace RobloxCloudApi.RobloxCloudApi.APITypes;
 
 public class RestrictionData : ApiDataBase
 {
@@ -21,9 +21,11 @@ public class GameJoinRestriction
     public string? Duration;
 
     [JsonPropertyName("excludeAltAccounts")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? ExcludeAltAccounts;
 
-    [JsonPropertyName("inherited")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    [JsonPropertyName("inherited")]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? Inherited;
 
     [JsonPropertyName("privateReason")] public string? PrivateReason;

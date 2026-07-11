@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RobloxCloudApi.APITypes.RobloxGeneralTypes;
+namespace RobloxCloudApi.RobloxCloudApi.APITypes.RobloxGeneralTypes;
 
 public class RobloxMoney
 {

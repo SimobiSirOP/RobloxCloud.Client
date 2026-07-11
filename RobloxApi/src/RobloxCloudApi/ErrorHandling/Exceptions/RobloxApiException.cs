@@ -1,4 +1,4 @@
-﻿namespace RobloxCloudApi.ErrorHandling.Exceptions;
+﻿namespace RobloxCloudApi.RobloxCloudApi.ErrorHandling.Exceptions;
 
 public class RobloxApiException : Exception
 {

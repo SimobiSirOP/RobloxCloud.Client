@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RobloxCloudApi.APIRequests.RequestHelpers;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
 
 /// <summary>
 ///     Use <see cref="List" /> to get an array of objects

@@ -1,9 +1,8 @@
-﻿using System.Text;
-using RobloxCloudApi;
-using RobloxCloudApi.APITypes;
-using RobloxCloudApi.ErrorHandling.Exceptions;
+﻿using RobloxCloudApi.RobloxCloudApi.APIMethods;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.ErrorHandling.Exceptions;
 
-namespace UnitTests.Complete.DataStoresTest;
+namespace UnitTests.Complete;
 
 [Category("Complete")]
 [TestFixture]

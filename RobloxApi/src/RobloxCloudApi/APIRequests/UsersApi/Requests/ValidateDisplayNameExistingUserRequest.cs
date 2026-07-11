@@ -1,6 +1,6 @@
-﻿using RobloxCloudApi.APIRequests.RequestHelpers;
+﻿using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
 
-namespace RobloxCloudApi.APIRequests.UsersApi;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.UsersApi.Requests;
 
 public class ValidateDisplayNameExistingUserRequest : RequestBase<object>
 {

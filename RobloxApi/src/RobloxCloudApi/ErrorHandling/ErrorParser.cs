@@ -1,10 +1,10 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.RequestHelpers;
-using RobloxCloudApi.APITypes;
-using RobloxCloudApi.Helpers;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.Helpers;
 
-namespace RobloxCloudApi.ErrorHandling;
+namespace RobloxCloudApi.RobloxCloudApi.ErrorHandling;
 
 public static class ErrorParser
 {
@@ -13,8 +13,8 @@ public static class ErrorParser
         var error = Serializer.SerializeFromString<RobloxError>(await response.Content.ReadAsStringAsync());
 
         if (error.ErrorCode == null)
-            return await GetErrorStringFromArray(response);
-
+                return await GetErrorStringFromArray(response);
+            
         return await GetBasicErrorString(response) + error;
     }
 

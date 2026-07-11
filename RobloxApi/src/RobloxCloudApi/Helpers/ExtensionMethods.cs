@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace RobloxCloudApi.Helpers;
+namespace RobloxCloudApi.RobloxCloudApi.Helpers;
 
 internal static class ObjectExtensions
 {

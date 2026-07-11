@@ -1,4 +1,4 @@
-﻿namespace RobloxCloudApi.APITypes;
+﻿namespace RobloxCloudApi.RobloxCloudApi.APITypes;
 
 public enum RobloxThumbnailShape
 {

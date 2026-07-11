@@ -1,6 +1,6 @@
-﻿using RobloxCloudApi.APIRequests.Abstractions;
+﻿using RobloxCloudApi.RobloxCloudApi.APIRequests.Abstractions;
 
-namespace RobloxCloudApi;
+namespace RobloxCloudApi.RobloxCloudApi;
 
 public interface IRobloxApiClient
 {

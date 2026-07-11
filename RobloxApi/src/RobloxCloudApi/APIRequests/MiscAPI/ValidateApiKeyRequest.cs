@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.RequestHelpers;
-using RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
 
-namespace RobloxCloudApi.APIRequests.MiscAPI;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.MiscAPI;
 
 internal class ValidateApiKeyRequest(string apiKey) : RequestBase<ApiKeyInfo>
 {

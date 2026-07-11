@@ -1,6 +1,6 @@
-﻿using RobloxCloudApi.APIRequests.RequestHelpers;
+﻿using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
 
-namespace RobloxCloudApi.APITypes.Operations;
+namespace RobloxCloudApi.RobloxCloudApi.APITypes.Operations;
 
 internal class OperationRequest<T>(string path)
     : RequestBase<T> where T : IOperation

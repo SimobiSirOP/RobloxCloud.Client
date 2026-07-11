@@ -1,10 +1,10 @@
 ﻿using JetBrains.Annotations;
-using RobloxCloudApi.APIRequests.UsersApi;
-using RobloxCloudApi.APITypes;
-using RobloxCloudApi.APITypes.ListTypes;
-using RobloxCloudApi.Helpers;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.UsersApi.Requests;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.APITypes.ListTypes;
+using RobloxCloudApi.RobloxCloudApi.Helpers;
 
-namespace RobloxCloudApi;
+namespace RobloxCloudApi.RobloxCloudApi.APIMethods;
 
 [PublicAPI]
 public static partial class RobloxApiMethods
@@ -81,8 +81,8 @@ public static partial class RobloxApiMethods
         string? duration,
         string displayReason,
         string privateReason,
-        bool excludeAlts = true,
-        bool inherited = true)
+        bool? excludeAlts = false,
+        bool? inherited = true)
     {
         return (await client.ThrowIfNull().SendRequest(new RestrictionRequest(
             universeId, userId, new GameJoinRestriction
@@ -115,7 +115,7 @@ public static partial class RobloxApiMethods
         long? duration = null,
         string displayReason = "You have been banned!",
         string? privateReason = null,
-        bool excludeAlts = true)
+        bool? excludeAlts = false)
     {
         return await client.SetUserRestrictionsInUniverse(userId, universeId, true, DateTime.UtcNow, duration != null ? duration + "s" : null,
             displayReason, privateReason ?? displayReason, excludeAlts);
@@ -134,6 +134,6 @@ public static partial class RobloxApiMethods
         long universeId)
     {
         return await client.SetUserRestrictionsInUniverse(userId, universeId, false, DateTime.UtcNow, null, string.Empty,
-            string.Empty);
+            string.Empty, null);
     }
 }

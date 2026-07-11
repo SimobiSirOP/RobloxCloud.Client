@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RobloxCloudApi.Helpers.JsonConverters;
+namespace RobloxCloudApi.RobloxCloudApi.Helpers.JsonConverters;
 
 internal class DateTimeIso8601Converter : JsonConverter<DateTime>
 {

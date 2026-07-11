@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using JetBrains.Annotations;
-using RobloxCloudApi.APIRequests.Abstractions;
-using RobloxCloudApi.ErrorHandling;
-using RobloxCloudApi.ErrorHandling.Exceptions;
-using RobloxCloudApi.Helpers;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.Abstractions;
+using RobloxCloudApi.RobloxCloudApi.ErrorHandling;
+using RobloxCloudApi.RobloxCloudApi.ErrorHandling.Exceptions;
+using RobloxCloudApi.RobloxCloudApi.Helpers;
 
-namespace RobloxCloudApi;
+namespace RobloxCloudApi.RobloxCloudApi;
 
 [PublicAPI]
 public class RobloxApiClient : IRobloxApiClient

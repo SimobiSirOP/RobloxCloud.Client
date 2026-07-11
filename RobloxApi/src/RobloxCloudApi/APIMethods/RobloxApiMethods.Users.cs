@@ -1,10 +1,10 @@
-﻿using RobloxCloudApi.APIRequests.UsersApi;
-using RobloxCloudApi.APITypes;
-using RobloxCloudApi.APITypes.ListTypes;
-using RobloxCloudApi.APITypes.Operations;
-using RobloxCloudApi.Helpers;
+﻿using RobloxCloudApi.RobloxCloudApi.APIRequests.UsersApi.Requests;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.APITypes.ListTypes;
+using RobloxCloudApi.RobloxCloudApi.APITypes.Operations;
+using RobloxCloudApi.RobloxCloudApi.Helpers;
 
-namespace RobloxCloudApi;
+namespace RobloxCloudApi.RobloxCloudApi.APIMethods;
 
 public static partial class RobloxApiMethods
 {

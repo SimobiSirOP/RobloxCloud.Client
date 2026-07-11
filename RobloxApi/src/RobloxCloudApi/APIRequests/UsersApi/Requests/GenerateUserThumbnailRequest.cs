@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.RequestHelpers;
-using RobloxCloudApi.APITypes;
-using RobloxCloudApi.APITypes.Operations;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.APITypes.Operations;
 
-namespace RobloxCloudApi.APIRequests.UsersApi;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.UsersApi.Requests;
 
 public class GenerateUserThumbnailRequest : RequestBase<RobloxOperation>
 {

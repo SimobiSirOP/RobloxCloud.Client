@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.Helpers;
-using RobloxCloudApi.Helpers.JsonConverters;
+using RobloxCloudApi.RobloxCloudApi.Helpers;
+using RobloxCloudApi.RobloxCloudApi.Helpers.JsonConverters;
 
-namespace RobloxCloudApi.APITypes;
+namespace RobloxCloudApi.RobloxCloudApi.APITypes;
 
 public class RobloxMessage
 {
@@ -31,7 +31,7 @@ public class RobloxError
 
     [JsonPropertyName("message")] public string? ErrorMessage { get; set; }
 
-    [JsonPropertyName("details")] public RobloxDetails? Details { get; set; }
+    [JsonPropertyName("details")] public RobloxDetails[]? Details { get; set; }
 
     public override string ToString()
     {

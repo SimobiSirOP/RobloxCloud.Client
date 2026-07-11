@@ -1,10 +1,9 @@
 ﻿using System.Text;
 using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.Abstractions;
-using RobloxCloudApi.APITypes;
-using RobloxCloudApi.Helpers;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.Abstractions;
+using RobloxCloudApi.RobloxCloudApi.Helpers;
 
-namespace RobloxCloudApi.APIRequests.RequestHelpers;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
 
 public abstract class RequestBase<TResponse> : IRequest<TResponse>
 {

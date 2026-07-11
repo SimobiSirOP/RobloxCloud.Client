@@ -1,4 +1,4 @@
-﻿namespace RobloxCloudApi.APITypes.Operations;
+﻿namespace RobloxCloudApi.RobloxCloudApi.APITypes.Operations;
 
 public interface IOperation
 {

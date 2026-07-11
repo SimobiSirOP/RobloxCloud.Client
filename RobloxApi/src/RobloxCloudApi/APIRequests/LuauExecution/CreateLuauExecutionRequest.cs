@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.RequestHelpers;
-using RobloxCloudApi.APITypes.Operations;
-using RobloxCloudApi.APITypes.RobloxGeneralTypes;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.RobloxCloudApi.APITypes.Operations;
+using RobloxCloudApi.RobloxCloudApi.APITypes.RobloxGeneralTypes;
 
-namespace RobloxCloudApi.APIRequests.LuauExecution;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.LuauExecution;
 
 internal class CreateLuauExecutionRequest : RequestBase<LuauExecutionOperation>
 {

@@ -24,8 +24,4 @@
       <ProjectReference Include="..\RobloxApi\RobloxApi.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Complete\DataStoresTest\" />
-    </ItemGroup>
-
 </Project>

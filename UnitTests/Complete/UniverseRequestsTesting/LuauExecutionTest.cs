@@ -1,9 +1,8 @@
-﻿using RobloxCloudApi;
-using RobloxCloudApi.APITypes.Operations;
-using RobloxCloudApi.APITypes.RobloxGeneralTypes;
-using RobloxCloudApi.ErrorHandling;
+﻿using RobloxCloudApi.RobloxCloudApi.APIMethods;
+using RobloxCloudApi.RobloxCloudApi.APITypes.Operations;
+using RobloxCloudApi.RobloxCloudApi.APITypes.RobloxGeneralTypes;
 
-namespace UnitTests.Complete.DataStoresTest;
+namespace UnitTests.Complete;
 
 [Category("Basic")]
 [Category("Complete")]

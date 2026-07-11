@@ -4,24 +4,24 @@ using System.Text.RegularExpressions;
 
 namespace RobloxCloudApi.RobloxCloudApi.Helpers.JsonConverters.RequestV2Helpers;
 
-public class UserApiPathConverter : JsonConverter<long>
+public class UniverseApiPathConverter : JsonConverter<long>
 {
     public override long Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         var strValue = reader.GetString();
-        var match = Regex.Match(strValue!, @"^users/(\d*$)");
+        var match = Regex.Match(strValue!, @"^universes/(\d*$)");
         if (!match.Success)
-            throw new JsonException("Error parsing userId from v2 request user API path");
+            throw new JsonException("Error parsing universeId from v2 request universe API path");
         return long.Parse(match.Groups[1].Value);
     }
 
     public override void Write(Utf8JsonWriter writer, long value, JsonSerializerOptions options)
     {
-        writer.WriteStringValue($"users/{value}");
+        writer.WriteStringValue($"universes/{value}");
     }
 }
 
-public class UserApiPathArrayConverter : JsonConverter<long[]>
+public class UniverseApiPathArrayConverter : JsonConverter<long[]>
 {
     public override long[] Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
@@ -36,10 +36,10 @@ public class UserApiPathArrayConverter : JsonConverter<long[]>
                 return list.ToArray();
 
             var strValue = reader.GetString();
-            var match = Regex.Match(strValue ?? "", @"^users/(\d+)$");
+            var match = Regex.Match(strValue ?? "", @"^universes/(\d+)$");
 
             if (!match.Success)
-                throw new JsonException($"Invalid user path format: {strValue}");
+                throw new JsonException($"Invalid universe path format: {strValue}");
 
             list.Add(long.Parse(match.Groups[1].Value));
         }
@@ -50,7 +50,7 @@ public class UserApiPathArrayConverter : JsonConverter<long[]>
     public override void Write(Utf8JsonWriter writer, long[] value, JsonSerializerOptions options)
     {
         writer.WriteStartArray();
-        foreach (var item in value) writer.WriteStringValue($"users/{item}");
+        foreach (var item in value) writer.WriteStringValue($"universes/{item}");
         writer.WriteEndArray();
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.Abstractions;
-using RobloxCloudApi.Helpers.JsonConverters;
-using RobloxCloudApi.Helpers.JsonConverters.RequestV2Helpers;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.Abstractions;
+using RobloxCloudApi.RobloxCloudApi.Helpers.JsonConverters;
+using RobloxCloudApi.RobloxCloudApi.Helpers.JsonConverters.RequestV2Helpers;
 
-namespace RobloxCloudApi.APITypes;
+namespace RobloxCloudApi.RobloxCloudApi.APITypes;
 
 public class DataStoreEntry : ApiDataBase
 {

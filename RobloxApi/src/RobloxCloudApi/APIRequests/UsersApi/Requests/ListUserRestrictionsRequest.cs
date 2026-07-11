@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.RequestHelpers;
-using RobloxCloudApi.APITypes;
-using RobloxCloudApi.APITypes.ListTypes;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.APITypes.ListTypes;
 
-namespace RobloxCloudApi.APIRequests.UsersApi;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.UsersApi.Requests;
 
 internal class ListUserRestrictionsRequest : ListRequestBase<RestrictionList>
 {

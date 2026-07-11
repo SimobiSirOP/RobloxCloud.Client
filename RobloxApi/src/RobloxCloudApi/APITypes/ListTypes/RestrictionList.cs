@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
 
-namespace RobloxCloudApi.APITypes.ListTypes;
+namespace RobloxCloudApi.RobloxCloudApi.APITypes.ListTypes;
 
 public class RestrictionList : ListResponseBase<RestrictionData>
 {

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RobloxCloudApi.APIRequests.RequestHelpers;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
 
 internal abstract class ListRequestBase<T> : RequestBase<T>
 {

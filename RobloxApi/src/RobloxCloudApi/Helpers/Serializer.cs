@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
 using System.Text.Unicode;
 
-namespace RobloxCloudApi.Helpers;
+namespace RobloxCloudApi.RobloxCloudApi.Helpers;
 
 public class Serializer
 {

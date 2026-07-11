@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.RequestHelpers;
-using RobloxCloudApi.Helpers.JsonConverters;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.RobloxCloudApi.Helpers.JsonConverters;
 
-namespace RobloxCloudApi.APIRequests.DataStores;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.DataStores;
 
 internal class SnapshotDataStoresRequest : RequestBase<SnapshotResult>
 {

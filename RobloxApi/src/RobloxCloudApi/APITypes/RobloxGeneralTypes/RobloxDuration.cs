@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace RobloxCloudApi.APITypes.RobloxGeneralTypes;
+namespace RobloxCloudApi.RobloxCloudApi.APITypes.RobloxGeneralTypes;
 
 [JsonConverter(typeof(RobloxDurationConverter))]
 public struct RobloxDuration

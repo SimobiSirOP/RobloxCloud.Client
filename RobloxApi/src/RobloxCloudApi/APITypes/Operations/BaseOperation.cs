@@ -1,7 +1,7 @@
-﻿using RobloxCloudApi.APIRequests.Abstractions;
-using RobloxCloudApi.Helpers;
+﻿using RobloxCloudApi.RobloxCloudApi.APIRequests.Abstractions;
+using RobloxCloudApi.RobloxCloudApi.Helpers;
 
-namespace RobloxCloudApi.APITypes.Operations;
+namespace RobloxCloudApi.RobloxCloudApi.APITypes.Operations;
 
 public abstract class BaseOperation : ApiDataBase, IOperation
 {

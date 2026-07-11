@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace RobloxCloudApi.APIRequests.Abstractions;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.Abstractions;
 
 public interface IRequest
 {

@@ -1,4 +1,4 @@
-﻿namespace RobloxCloudApi.APIRequests.RequestHelpers;
+﻿namespace RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
 
 /// <summary>
 ///     Used for v1 api lists

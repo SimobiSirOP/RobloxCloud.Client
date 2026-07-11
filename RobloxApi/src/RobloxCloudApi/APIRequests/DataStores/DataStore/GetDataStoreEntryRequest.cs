@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
-using RobloxCloudApi.APIRequests.RequestHelpers;
-using RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.APIRequests.RequestHelpers;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
 
-namespace RobloxCloudApi.APIRequests.DataStores;
+namespace RobloxCloudApi.RobloxCloudApi.APIRequests.DataStores;
 
 internal class GetDataStoreEntryRequest : RequestBase<DataStoreEntry>
 {

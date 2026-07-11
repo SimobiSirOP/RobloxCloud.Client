@@ -1,9 +1,9 @@
-﻿using RobloxCloudApi.APIRequests.DataStores;
-using RobloxCloudApi.APITypes;
-using RobloxCloudApi.APITypes.ListTypes;
-using RobloxCloudApi.Helpers;
+﻿using RobloxCloudApi.RobloxCloudApi.APIRequests.DataStores;
+using RobloxCloudApi.RobloxCloudApi.APITypes;
+using RobloxCloudApi.RobloxCloudApi.APITypes.ListTypes;
+using RobloxCloudApi.RobloxCloudApi.Helpers;
 
-namespace RobloxCloudApi;
+namespace RobloxCloudApi.RobloxCloudApi.APIMethods;
 
 public static partial class RobloxApiMethods
 {
@@ -252,9 +252,9 @@ public static partial class RobloxApiMethods
         string? scopeId,
         object value,
         long[] dataStoreUsersIds,
+        bool allowMissing = false,
         object? attributes = null,
-        string? eTag = null,
-        bool allowMissing = false
+        string? eTag = null
     )
     {
         return (await client.ThrowIfNull().SendRequest(new UpdateDataStoreEntryRequest
@@ -297,7 +297,7 @@ public static partial class RobloxApiMethods
         bool allowMissing = false
     )
     {
-        return await client.UpdateDataStoreEntry(universeId, dataStoreId, entryId, null, value, dataStoreUsersIds,
+        return await client.UpdateDataStoreEntry(universeId, dataStoreId, entryId, null, value, dataStoreUsersIds, allowMissing,
             attributes, eTag);
     }
 

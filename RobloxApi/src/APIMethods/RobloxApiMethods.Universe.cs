@@ -167,7 +167,8 @@ public static partial class RobloxApiMethods
         RobloxDuration timeout,
         bool returnErrorsInstead = false,
         bool enableBinaryOutput = false,
-        RobloxBinary? binaryInput = null)
+        RobloxBinary? binaryInput = null,
+        bool shouldWait = true)
     {
         var output = new object();
         object? error = null;
@@ -177,7 +178,7 @@ public static partial class RobloxApiMethods
             error = new object();
         }
 
-        var startOperation = await client.ThrowIfNull().SendRequest(
+        var uncompletedOperation = await client.ThrowIfNull().SendRequest(
             new CreateLuauExecutionRequest
             {
                 UniverseId = universeId,
@@ -189,7 +190,11 @@ public static partial class RobloxApiMethods
                 BinaryInput = binaryInput,
                 EnableBinaryOutput = enableBinaryOutput
             })!;
-        return await startOperation!.WaitForCompletionAsync<LuauExecutionOperation>(client);
+        
+        if (shouldWait)
+            return await uncompletedOperation.WaitForCompletionAsync<LuauExecutionOperation>(client)!;
+        else 
+            return uncompletedOperation;
     }
 
     /// <summary>

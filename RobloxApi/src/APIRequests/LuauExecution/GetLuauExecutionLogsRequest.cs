@@ -5,6 +5,7 @@ using RobloxCloudApi.APITypes.ListTypes;
 
 namespace RobloxCloudApi.APIRequests.LuauExecution;
 
+[ApiTokenAuth]
 internal class GetLuauExecutionLogsRequest : ListRequestBase<LuauExecutionLogList>
 {
     public GetLuauExecutionLogsRequest(string path)

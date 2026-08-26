@@ -4,6 +4,7 @@ using RobloxCloudApi.APITypes.ListTypes;
 
 namespace RobloxCloudApi.APIRequests.UniverseData.PlacesApi;
 
+// No auth
 public class GetUniversePlacesRequest : OldListRequestBase<PlaceInfoList>
 {
     [JsonIgnore]

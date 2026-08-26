@@ -5,6 +5,7 @@ using RobloxCloudApi.Helpers.JsonConverters.RequestV2Helpers;
 
 namespace RobloxCloudApi.APIRequests.DataStores;
 
+[ApiTokenAuth]
 internal class CreateDataStoreEntryRequest : RequestBase<DataStoreEntry>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Post;

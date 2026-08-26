@@ -4,6 +4,7 @@ using RobloxCloudApi.APITypes;
 
 namespace RobloxCloudApi.APIRequests.DataStores.OrderedDataStore;
 
+[ApiTokenAuth]
 internal class DeleteOrderedDataStoreEntryRequest : RequestBase<object>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Delete;

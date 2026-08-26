@@ -5,7 +5,8 @@ using RobloxCloudApi.Helpers.JsonConverters.RequestV2Helpers;
 
 namespace RobloxCloudApi.APIRequests.UsersApi.Requests;
 
-internal class RestrictionRequest : RequestBase<RestrictionData>
+[ApiTokenAuth]
+internal class UpdateRestrictionRequest : RequestBase<RestrictionData>
 {
     // Currently, Roblox has only gameJoinRestriction, that is just a ban
     [JsonPropertyName("gameJoinRestriction")]
@@ -13,20 +14,9 @@ internal class RestrictionRequest : RequestBase<RestrictionData>
 
     [JsonIgnore] public long? UniverseId;
 
-    [JsonPropertyName("user")] [JsonConverter(typeof(UserApiPathConverter))]
+    [JsonPropertyName("user")] 
+    [JsonConverter(typeof(UserApiPathConverter))]
     public long? UserId;
-
-    [JsonConstructor]
-    public RestrictionRequest()
-    {
-    }
-
-    public RestrictionRequest(long universeId, long userId, GameJoinRestriction? gameJoinRestriction)
-    {
-        UniverseId = universeId;
-        UserId = userId;
-        GameJoinRestriction = gameJoinRestriction;
-    }
 
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Patch;
 

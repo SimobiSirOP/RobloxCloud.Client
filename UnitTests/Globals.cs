@@ -1,4 +1,5 @@
 ﻿using RobloxCloudApi;
+using RobloxCloudApi.AccessTokens;
 
 namespace UnitTests;
 
@@ -16,7 +17,7 @@ public class GlobalInit
     {
         var botToken = System.Environment.GetEnvironmentVariable("ROBLOX_API_TOKEN");
         Globals.TestUniverseId = long.Parse(System.Environment.GetEnvironmentVariable("ROBLOX_UNIVERSE_ID")!);
-        Globals.Client = new RobloxApiClient(new RobloxApiClientSettings(botToken!, TimeSpan.FromSeconds(20), 7));
+        Globals.Client = new RobloxApiClient(new RobloxApiClientSettings(new ApiKeyToken(botToken), TimeSpan.FromSeconds(20), 7));
 
     }
 }

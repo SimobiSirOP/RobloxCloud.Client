@@ -84,17 +84,22 @@ public static partial class RobloxApiMethods
         bool? excludeAlts = false,
         bool? inherited = true)
     {
-        return (await client.ThrowIfNull().SendRequest(new RestrictionRequest(
-            universeId, userId, new GameJoinRestriction
-            {
-                Active = active,
-                StartTime = startTime,
-                Duration = duration,
-                DisplayReason = displayReason,
-                PrivateReason = privateReason,
-                ExcludeAltAccounts = excludeAlts,
-                Inherited = inherited
-            })))!;
+        var restriction = new GameJoinRestriction
+        {
+            Active = active,
+            StartTime = startTime,
+            Duration = duration,
+            DisplayReason = displayReason,
+            PrivateReason = privateReason,
+            ExcludeAltAccounts = excludeAlts,
+            Inherited = inherited
+        };
+        return (await client.ThrowIfNull().SendRequest(new UpdateRestrictionRequest()
+        {
+            GameJoinRestriction = restriction,
+            UniverseId = universeId,
+            UserId = userId
+        }))!;
     }
 
     /// <summary>

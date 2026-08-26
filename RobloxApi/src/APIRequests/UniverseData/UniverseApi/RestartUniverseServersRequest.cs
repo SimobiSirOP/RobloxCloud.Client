@@ -3,6 +3,7 @@ using RobloxCloudApi.APIRequests.RequestHelpers;
 
 namespace RobloxCloudApi.APIRequests.UniverseData.UniverseApi;
 
+[ApiTokenAuth]
 public class RestartUniverseServersRequest : RequestBase<object>
 {
     public override HttpMethod HttpMethod { get; } = HttpMethod.Post;

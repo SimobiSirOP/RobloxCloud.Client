@@ -10,6 +10,7 @@ public abstract class RequestBase<TResponse> : IRequest<TResponse>
 {
     [JsonIgnore] public abstract HttpMethod HttpMethod { get; }
 
+    [UriString]
     [JsonPropertyName("path")] public abstract string RequestPath { get; }
 
     public HttpContent? GetHttpContent()

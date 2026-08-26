@@ -4,6 +4,7 @@ using RobloxCloudApi.APITypes;
 
 namespace RobloxCloudApi.APIRequests.DataStores;
 
+[ApiTokenAuth]
 internal class UndeleteDataStoreRequest : RequestBase<DataStoreInfo>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Post;

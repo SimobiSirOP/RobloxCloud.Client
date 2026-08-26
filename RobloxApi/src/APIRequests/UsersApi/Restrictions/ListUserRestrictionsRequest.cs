@@ -5,6 +5,7 @@ using RobloxCloudApi.APITypes.ListTypes;
 
 namespace RobloxCloudApi.APIRequests.UsersApi.Requests;
 
+[ApiTokenAuth]
 internal class ListUserRestrictionsRequest : ListRequestBase<RestrictionList>
 {
     [JsonIgnore] public long? UniverseId;

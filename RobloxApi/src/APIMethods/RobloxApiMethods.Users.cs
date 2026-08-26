@@ -88,7 +88,8 @@ public static partial class RobloxApiMethods
         long userId,
         RobloxThumbnailSize size = RobloxThumbnailSize.Size420,
         RobloxThumbnailFormat format = RobloxThumbnailFormat.PNG,
-        RobloxThumbnailShape shape = RobloxThumbnailShape.ROUND)
+        RobloxThumbnailShape shape = RobloxThumbnailShape.ROUND,
+        bool shouldWait = true)
     {
         var uncompletedOperation = (await client.ThrowIfNull().SendRequest(new GenerateUserThumbnailRequest
         {
@@ -97,6 +98,9 @@ public static partial class RobloxApiMethods
             Format = format,
             Shape = shape
         }))!;
-        return await uncompletedOperation.WaitForCompletionAsync<RobloxOperation>(client)!;
+        if (shouldWait)
+            return await uncompletedOperation.WaitForCompletionAsync<RobloxOperation>(client)!;
+        else 
+            return uncompletedOperation;
     }
 }

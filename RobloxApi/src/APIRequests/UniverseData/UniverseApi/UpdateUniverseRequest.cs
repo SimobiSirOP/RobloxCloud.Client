@@ -4,6 +4,7 @@ using RobloxCloudApi.APITypes;
 
 namespace RobloxCloudApi.APIRequests.UniverseData.UniverseApi;
 
+[ApiTokenAuth]
 public class UpdateUniverseRequest : RequestBase<RobloxUniverse>
 {
     [JsonIgnore]

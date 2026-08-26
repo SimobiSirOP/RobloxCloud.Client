@@ -4,6 +4,7 @@ using RobloxCloudApi.Helpers.JsonConverters;
 
 namespace RobloxCloudApi.APIRequests.DataStores;
 
+[ApiTokenAuth]
 internal class SnapshotDataStoresRequest : RequestBase<SnapshotResult>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Post;

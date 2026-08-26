@@ -4,6 +4,7 @@ using RobloxCloudApi.APITypes;
 
 namespace RobloxCloudApi.APIRequests.UsersApi.Requests;
 
+[ApiTokenAuth]
 public class GetUserFromIdRequest : RequestBase<RobloxFullUser>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Get;

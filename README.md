@@ -24,11 +24,12 @@ This API targets **.NET 8.0** and higher
 * Banning and Unbanning Users
 * Getting Roblox Universe Data, publishing messages and restarting servers
 * Implementation of Luau Execution
-* Getting Data with Roblox DataStore
+* Getting Data from DataStores and Ordered DataStores
 
 ## 🎯 Next Goals
 
-* Handling of Ordered DataStores
+* Authentication using OAuth2
+* In-client caching of data
 * Handling of Analytics API
 * Changing Developer Products and GamePasses
 * Uploading Assets to Roblox

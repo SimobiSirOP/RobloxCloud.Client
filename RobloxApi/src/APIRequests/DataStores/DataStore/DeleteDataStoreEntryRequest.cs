@@ -3,6 +3,7 @@ using RobloxCloudApi.APIRequests.RequestHelpers;
 
 namespace RobloxCloudApi.APIRequests.DataStores;
 
+[ApiTokenAuth]
 internal class DeleteDataStoreEntryRequest : RequestBase<object>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Delete;

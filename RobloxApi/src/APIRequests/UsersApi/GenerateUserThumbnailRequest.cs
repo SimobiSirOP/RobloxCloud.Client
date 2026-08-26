@@ -5,6 +5,7 @@ using RobloxCloudApi.APITypes.Operations;
 
 namespace RobloxCloudApi.APIRequests.UsersApi.Requests;
 
+[ApiTokenAuth]
 public class GenerateUserThumbnailRequest : RequestBase<RobloxOperation>
 {
     public override HttpMethod HttpMethod { get; } = HttpMethod.Get;

@@ -7,7 +7,7 @@ internal static class ObjectExtensions
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     [return: System.Diagnostics.CodeAnalysis.NotNull]
-    internal static T ThrowIfNull<T>([NotNull] this T? value)
+    internal static T ThrowIfNull<T>([NoEnumeration] this T? value)
     {
         return value ?? throw new ArgumentNullException(null);
     }

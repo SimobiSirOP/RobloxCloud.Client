@@ -4,6 +4,7 @@ using RobloxCloudApi.APITypes.ListTypes;
 
 namespace RobloxCloudApi.APIRequests.DataStores.OrderedDataStore;
 
+[ApiTokenAuth]
 internal class ListOrderedDataStoreEntriesRequest : ListRequestBase<OrderedDataStoreEntryList>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Get;

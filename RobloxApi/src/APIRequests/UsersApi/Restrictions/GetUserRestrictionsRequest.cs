@@ -4,6 +4,7 @@ using RobloxCloudApi.APITypes;
 
 namespace RobloxCloudApi.APIRequests.UsersApi.Requests;
 
+[ApiTokenAuth]
 internal class GetUserRestrictionsRequest : RequestBase<RestrictionData>
 {
     public override HttpMethod HttpMethod { get; } = HttpMethod.Get;

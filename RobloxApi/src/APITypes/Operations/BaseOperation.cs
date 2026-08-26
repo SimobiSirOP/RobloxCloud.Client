@@ -10,10 +10,10 @@ public abstract class BaseOperation : ApiBaseData, IOperation
 
     public async Task<T> WaitForCompletionAsync<T>(IRobloxApiClient client,
         string domain = "https://apis.roblox.com/cloud/v2") where T : class, IOperation
+    // Operations are only used in v2 Cloud API as far as I know
     {
         if (IsCompleted()) return (this as T)!;
-
-
+        
         // Preparing operation request
         if (!domain.EndsWith("/")) domain += "/";
 

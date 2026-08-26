@@ -1,14 +1,16 @@
 ﻿using System.Text.Json.Serialization;
+using JetBrains.Annotations;
 using RobloxCloudApi.APIRequests.RequestHelpers;
 using RobloxCloudApi.APITypes.Operations;
 using RobloxCloudApi.APITypes.RobloxGeneralTypes;
 
 namespace RobloxCloudApi.APIRequests.LuauExecution;
 
+[ApiTokenAuth]
 internal class CreateLuauExecutionRequest : RequestBase<LuauExecutionOperation>
 {
     [JsonIgnore] public override HttpMethod HttpMethod { get; } = HttpMethod.Post;
-
+    
     [JsonIgnore]
     public override string RequestPath =>
         $"https://apis.roblox.com/cloud/v2/universes/{UniverseId}/places/{PlaceId}/luau-execution-session-tasks";
